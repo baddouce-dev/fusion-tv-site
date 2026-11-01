@@ -442,3 +442,5 @@ section { padding-block: 72px; }
   html { scroll-behavior: auto; }
   .bouton, .carte { transition: none; }
 }
+
+.apk-officiel code { color: var(--texte); font-weight: 600; }

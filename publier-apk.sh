@@ -3,6 +3,7 @@
 #
 #   ./publier-apk.sh <fichier.apk>              essai à blanc : contrôles et aperçu du site, rien n'est envoyé
 #   ./publier-apk.sh <fichier.apk> --publier    crée la release (après accord explicite du propriétaire)
+#                                               et remplace fusion-tv.apk (adresse courte fusion-tv.fr/fusion-tv.apk)
 #
 # Contrôles bloquants : paquet com.iptv.player, APK non débogable, nom sans « debug » ni « candidat »,
 # certificat de signature identique à l'empreinte attendue (compatibilité avec les installations existantes),
@@ -85,4 +86,5 @@ gh release create "v$version" --repo "$DEPOT" --title "FUSION TV $version" \
   --notes "Bêta privée gratuite — activation FUSION Access requise. SHA-256 : $empreinte" \
   "$travail/fusion-tv-$version.apk" "$travail/fusion-tv.apk" "$travail/SHA256SUMS.txt"
 remplacer index.html
+cp "$apk" fusion-tv.apk
 echo "Release v$version publiée. Section « Installer » mise à jour : vérifier, puis commiter et pousser le site."

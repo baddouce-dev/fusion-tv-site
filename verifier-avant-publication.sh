@@ -14,5 +14,10 @@ lien_apk="$(grep -o 'https://github.com/[^"]*/releases/latest/download/fusion-tv
 if [ -n "$lien_apk" ] && ! curl -sfIL -o /dev/null "$lien_apk"; then
   echo "Bouton de téléchargement actif mais APK introuvable : $lien_apk"; status=1
 fi
+# La copie directe doit être identique à l'APK de la dernière release (même empreinte que celle affichée).
+if [ -f fusion-tv.apk ]; then
+  affichee="$(grep -o 'SHA-256 : <code>[0-9a-f]\{64\}' index.html | grep -o '[0-9a-f]\{64\}' | head -1)"
+  [ "$(sha256sum fusion-tv.apk | cut -d' ' -f1)" = "$affichee" ] || { echo "fusion-tv.apk ne correspond pas à l'empreinte affichée."; status=1; }
+fi
 [ $status -eq 0 ] && echo "Prêt à publier."
 exit $status
