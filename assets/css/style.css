@@ -282,6 +282,8 @@ section { padding-block: 72px; }
 .apk-infos dd { margin: 0; font-weight: 700; }
 .apk-empreinte { margin: 0; color: var(--texte-3); font-size: 0.76rem; line-height: 1.4; overflow-wrap: anywhere; }
 .apk-empreinte code { color: var(--texte-2); }
+.apk-officiel { margin: 0; padding: 10px 12px; border-left: 3px solid var(--or); border-radius: 0 10px 10px 0; background: rgba(224, 168, 30, 0.08); color: var(--texte-2); font-size: 0.84rem; line-height: 1.45; }
+.apk-officiel strong { color: var(--or-clair); }
 .lien-guide { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; font-weight: 600; }
 .lien-guide svg { width: 16px; height: 16px; }
 

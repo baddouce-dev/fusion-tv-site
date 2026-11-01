@@ -43,11 +43,15 @@
         <li>
           <h2>Récupérer le fichier APK</h2>
           <p>Depuis la section <a href="index.html#installer">Installer FUSION TV</a>, téléchargez le fichier sur votre ordinateur ou votre téléphone.</p>
+          <p class="avertissement"><strong>FUSION TV se télécharge uniquement sur fusion-tv.fr.</strong> Un fichier obtenu ailleurs (messagerie, forum, autre site) n'est pas officiel et pourrait dérober vos identifiants IPTV : ne l'installez pas.</p>
           <p>Pour vérifier qu'il est intact (facultatif), comparez son empreinte SHA-256 avec celle affichée sur le site :</p>
           <ul>
             <li>Windows (PowerShell) : <code>Get-FileHash fusion-tv.apk</code></li>
             <li>macOS ou Linux : <code>shasum -a 256 fusion-tv.apk</code></li>
           </ul>
+          <p>Pour vérifier qu'il est bien signé par FUSION TV, comparez l'empreinte de son certificat de signature avec celle-ci (sur Android : application « Package Info » ; sur ordinateur : <code>apksigner verify --print-certs fusion-tv.apk</code>) :</p>
+          <p><code>0D:AD:98:66:A2:3F:52:40:DA:49:B4:9F:B3:B8:06:6E:13:50:91:73:82:4B:B7:AD:1A:00:26:B7:1B:5F:C5:2E</code></p>
+          <p>Cette empreinte ne change pas d'une version à l'autre. Si elle est différente, le fichier n'est pas officiel.</p>
         </li>
         <li>
           <h2>Transférer le fichier sur le téléviseur</h2>
