@@ -147,7 +147,7 @@ section { padding-block: 76px; }
 .document .maj { color: var(--texte-3); font-size: 0.9rem; }
 
 /* --- Mise en page inspirée de la maquette (identité FUSION : noir, or) --- */
-.or { color: var(--or); }
+.or { color: var(--or); white-space: nowrap; }
 .principale .conteneur { grid-template-columns: 1fr 1.08fr; }
 .sous-titre { text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.05rem; font-weight: 600; margin: 20px 0 14px; }
 .filet { display: block; width: 180px; height: 2px; margin: 0 0 20px; background: linear-gradient(90deg, var(--or), transparent); }
