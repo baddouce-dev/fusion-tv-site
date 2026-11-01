@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mentions légales — FUSION TV</title>
+  <meta name="description" content="Mentions légales du site FUSION TV : éditeur, hébergement, propriété intellectuelle.">
+  <meta name="theme-color" content="#080a0d">
+  <link rel="canonical" href="https://baddouce-dev.github.io/fusion-tv-site/mentions-legales.html">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="index.html" aria-label="FUSION TV — accueil"><img src="assets/img/logo-small.png" alt="FUSION TV" width="280" height="93"></a>
+      <nav class="navigation" aria-label="Navigation principale">
+        <button class="bouton-menu" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+        <ul id="menu">
+          <li><a href="index.html#accueil">Accueil</a></li>
+          <li><a href="index.html#fonctionnalites">Fonctionnalités</a></li>
+          <li><a href="index.html#beta">Bêta privée</a></li>
+          <li><a href="index.html#apropos">À propos</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu" class="document">
+    <div class="conteneur">
+      <h1>Mentions légales</h1>
+      <p class="maj">Dernière mise à jour : 1er novembre 2026</p>
+
+      <h2>Éditeur du site</h2>
+      <p>Particulier, éditeur non professionnel. Conformément à l'article 6, III, 2° de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, l'éditeur, personne physique agissant à titre non professionnel, a choisi de ne pas rendre publique son identité ; il reste identifiable auprès de l'hébergeur.</p>
+      <p>Contact : <a href="mailto:contact.fusiontv@proton.me">contact.fusiontv@proton.me</a></p>
+
+      <h2>Directeur de la publication</h2>
+      <p>L'éditeur du site (particulier, éditeur non professionnel).</p>
+
+      <h2>Hébergement</h2>
+      <p>GitHub, Inc. (service GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis — <a href="https://github.com">github.com</a>.</p>
+
+      <h2>Objet du site</h2>
+      <p>Ce site présente FUSION TV, lecteur multimédia pour Android TV et Google TV, actuellement en développement et proposé en bêta privée gratuite à un groupe restreint de testeurs. Le site ne propose ni téléchargement public, ni vente, ni inscription en ligne.</p>
+
+      <h2>Contenus</h2>
+      <p>FUSION TV ne fournit, n'héberge ni ne vend de chaînes de télévision, films, séries ou abonnements IPTV. L'utilisateur doit disposer de ses propres sources et des droits nécessaires pour accéder aux contenus.</p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>Le nom FUSION TV, son logo et les éléments graphiques de ce site appartiennent à leur auteur. Toute reproduction sans autorisation est interdite.</p>
+      <p>Les éventuelles données d'enrichissement des fiches (classifications d'âge, collections) proviennent de The Movie Database (TMDB). FUSION TV n'est ni approuvé, ni certifié, ni sponsorisé par TMDB.</p>
+    </div>
+  </main>
+
+  <footer class="pied-page">
+    <div class="conteneur">
+      <img src="assets/img/logo-small.png" alt="FUSION TV" width="280" height="93">
+      <ul>
+        <li>Application en développement</li>
+        <li>Bêta privée gratuite</li>
+        <li><a href="mentions-legales.html">Mentions légales</a></li>
+        <li><a href="confidentialite.html">Politique de confidentialité</a></li>
+        <li>© <span id="annee">2026</span> FUSION TV</li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.querySelector(".navigation");
+    const bouton = nav.querySelector(".bouton-menu");
+    bouton.addEventListener("click", () => {
+      const ouvert = nav.classList.toggle("ouverte");
+      bouton.setAttribute("aria-expanded", String(ouvert));
+    });
+    document.getElementById("annee").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

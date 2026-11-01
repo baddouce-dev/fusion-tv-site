@@ -1,0 +1,168 @@
+/* FUSION TV — site officiel. Couleurs reprises de l'application (noir, anthracite, blanc, or). */
+:root {
+  --fond: #080a0d;
+  --fond-eleve: #0c0f13;
+  --surface: #11151a;
+  --surface-haute: #171b20;
+  --contour: #23282f;
+  --or: #c9a24a;
+  --or-clair: #e2c078;
+  --texte: #f5f5f5;
+  --texte-2: #a8adb5;
+  --texte-3: #8a9099;
+  --rayon: 14px;
+  --largeur: 1140px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--texte);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--or-clair); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--or); outline-offset: 3px; border-radius: 6px; }
+
+.lien-evitement {
+  position: absolute; left: -999px; top: 8px; background: var(--or); color: var(--fond); padding: 8px 14px; border-radius: 8px; z-index: 10;
+}
+.lien-evitement:focus { left: 8px; }
+
+.conteneur { width: min(var(--largeur), 100% - 32px); margin-inline: auto; }
+
+/* --- En-tête --- */
+.entete {
+  position: sticky; top: 0; z-index: 5;
+  background: rgba(8, 10, 13, 0.92);
+  border-bottom: 1px solid var(--contour);
+  backdrop-filter: blur(8px);
+}
+.entete .conteneur { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; }
+.entete .logo img { height: 42px; width: auto; }
+.navigation ul { list-style: none; display: flex; gap: 6px; margin: 0; padding: 0; }
+.navigation a {
+  display: block; padding: 8px 14px; color: var(--texte); text-decoration: none; font-weight: 500; border-radius: 8px;
+}
+.navigation a:hover { color: var(--or-clair); }
+.navigation a[aria-current="page"] { color: var(--or-clair); box-shadow: inset 0 -2px 0 var(--or); border-radius: 0; }
+.bouton-menu { display: none; }
+
+/* --- Section principale --- */
+.principale {
+  position: relative;
+  background: linear-gradient(90deg, rgba(8, 10, 13, 0.96) 0%, rgba(8, 10, 13, 0.75) 55%, rgba(8, 10, 13, 0.55) 100%), url("../img/background.jpg") center / cover no-repeat;
+  border-bottom: 1px solid var(--contour);
+}
+.principale .conteneur { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; padding-block: 72px 80px; }
+.principale h1 { margin: 0; line-height: 0; }
+.principale h1 img { width: min(460px, 100%); }
+.sous-titre { margin: 18px 0 10px; font-size: 1.45rem; font-weight: 600; letter-spacing: 0.01em; }
+.description { margin: 0 0 22px; color: var(--texte-2); max-width: 36em; }
+.badge {
+  display: inline-block; margin-bottom: 26px; padding: 6px 14px; border: 1px solid var(--or); border-radius: 999px;
+  color: var(--or-clair); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em;
+}
+.bouton {
+  display: inline-block; padding: 13px 26px; border-radius: 12px; font-weight: 700; text-decoration: none;
+  background: var(--or); color: var(--fond); border: 1px solid var(--or);
+}
+.bouton:hover { background: var(--or-clair); }
+.plateformes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; padding: 0; list-style: none; }
+.plateformes li {
+  padding: 8px 14px; border: 1px solid var(--contour); border-radius: 10px; background: rgba(17, 21, 26, 0.8); color: var(--texte-2); font-size: 0.92rem;
+}
+
+.televiseur { margin: 0; }
+.televiseur .ecran {
+  padding: 10px; background: #050608; border: 1px solid #2c3138; border-radius: 16px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(201, 162, 74, 0.18);
+}
+.televiseur .ecran img { border-radius: 8px; }
+.televiseur .pied { width: 34%; height: 10px; margin: 0 auto; background: #15181d; border-radius: 0 0 10px 10px; }
+.televiseur figcaption { margin-top: 12px; text-align: center; color: var(--texte-3); font-size: 0.85rem; }
+
+/* --- Sections --- */
+section { padding-block: 76px; }
+.titre-section { display: flex; align-items: center; gap: 18px; margin: 0 0 14px; font-size: clamp(1.6rem, 3vw, 2.1rem); }
+.titre-section::before, .titre-section::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--or)); }
+.titre-section::after { background: linear-gradient(90deg, var(--or), transparent); }
+.chapeau { margin: 0 auto 40px; max-width: 46em; text-align: center; color: var(--texte-2); }
+
+.cartes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.carte {
+  padding: 26px 24px; background: var(--surface); border: 1px solid var(--contour); border-radius: var(--rayon);
+}
+.carte svg { width: 34px; height: 34px; color: var(--or); }
+.carte h3 { margin: 14px 0 6px; font-size: 1.15rem; }
+.carte p { margin: 0; color: var(--texte-2); font-size: 0.97rem; }
+
+.beta { background: var(--fond-eleve); border-block: 1px solid var(--contour); }
+.encadre {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: start;
+  padding: 36px; border: 1px solid rgba(201, 162, 74, 0.55); border-radius: 18px; background: var(--surface);
+}
+.encadre h2 { margin: 0 0 12px; font-size: clamp(1.5rem, 2.6vw, 1.9rem); }
+.encadre p { margin: 0; color: var(--texte-2); }
+.points { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.points li { position: relative; padding-left: 30px; }
+.points li::before {
+  content: ""; position: absolute; left: 4px; top: 0.5em; width: 12px; height: 7px;
+  border-left: 2px solid var(--or); border-bottom: 2px solid var(--or); transform: rotate(-45deg);
+}
+
+.apropos .colonnes { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.apropos p { color: var(--texte-2); margin: 0 0 14px; }
+.avertissement {
+  padding: 20px 22px; border-left: 3px solid var(--or); background: var(--surface); border-radius: 0 var(--rayon) var(--rayon) 0; color: var(--texte) !important;
+}
+
+.contact { text-align: center; }
+
+/* --- Pied de page --- */
+.pied-page { border-top: 1px solid var(--contour); background: var(--fond-eleve); padding-block: 34px; color: var(--texte-3); font-size: 0.92rem; }
+.pied-page .conteneur { display: flex; flex-wrap: wrap; gap: 18px 32px; align-items: center; justify-content: space-between; }
+.pied-page img { height: 30px; width: auto; }
+.pied-page ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 0; padding: 0; }
+.pied-page a { color: var(--texte-2); }
+
+/* --- Pages de texte (mentions, confidentialité) --- */
+.document { padding-block: 56px 72px; }
+.document .conteneur { max-width: 820px; }
+.document h1 { font-size: clamp(1.7rem, 3vw, 2.2rem); margin: 0 0 8px; }
+.document h2 { margin: 36px 0 10px; font-size: 1.25rem; color: var(--or-clair); }
+.document p, .document li { color: var(--texte-2); }
+.document .maj { color: var(--texte-3); font-size: 0.9rem; }
+
+/* --- Adaptation tablette et mobile --- */
+@media (max-width: 900px) {
+  .principale .conteneur { grid-template-columns: 1fr; padding-block: 48px 56px; gap: 36px; }
+  .cartes { grid-template-columns: repeat(2, 1fr); }
+  .encadre { grid-template-columns: 1fr; padding: 26px; }
+  .apropos .colonnes { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  .bouton-menu {
+    display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; background: transparent; color: var(--texte);
+    border: 1px solid var(--contour); border-radius: 10px; font: inherit; cursor: pointer;
+  }
+  .navigation ul { display: none; position: absolute; left: 0; right: 0; top: 68px; flex-direction: column; padding: 10px 16px 16px; background: var(--fond); border-bottom: 1px solid var(--contour); }
+  .navigation.ouverte ul { display: flex; }
+  .navigation a[aria-current="page"] { box-shadow: none; }
+  .cartes { grid-template-columns: 1fr; }
+  section { padding-block: 56px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
