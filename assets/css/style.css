@@ -92,7 +92,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--or); outline-of
 
 /* --- Sections --- */
 section { padding-block: 76px; }
-.titre-section { display: flex; align-items: center; gap: 18px; margin: 0 0 14px; font-size: clamp(1.6rem, 3vw, 2.1rem); }
+.titre-section { text-align: center; display: flex; align-items: center; gap: 18px; margin: 0 0 14px; font-size: clamp(1.6rem, 3vw, 2.1rem); }
 .titre-section::before, .titre-section::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--or)); }
 .titre-section::after { background: linear-gradient(90deg, var(--or), transparent); }
 .chapeau { margin: 0 auto 40px; max-width: 46em; text-align: center; color: var(--texte-2); }
@@ -146,11 +146,70 @@ section { padding-block: 76px; }
 .document p, .document li { color: var(--texte-2); }
 .document .maj { color: var(--texte-3); font-size: 0.9rem; }
 
+/* --- Mise en page inspirée de la maquette (identité FUSION : noir, or) --- */
+.or { color: var(--or); }
+.principale .conteneur { grid-template-columns: 1fr 1.08fr; }
+.sous-titre { text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.05rem; font-weight: 600; margin: 20px 0 14px; }
+.filet { display: block; width: 180px; height: 2px; margin: 0 0 20px; background: linear-gradient(90deg, var(--or), transparent); }
+.plateformes { gap: 14px; }
+.plateformes li {
+  display: inline-flex; align-items: center; gap: 12px; padding: 10px 18px 10px 14px; border: 1.5px solid var(--or); border-radius: 16px;
+  background: rgba(8, 10, 13, 0.75); color: var(--texte); font-weight: 600; line-height: 1.25; font-size: 0.95rem;
+}
+.plateformes svg { width: 30px; height: 30px; color: var(--or); flex: none; }
+
+.televiseur { perspective: 1400px; }
+.televiseur .ecran { transform: rotateY(-9deg) rotateX(2deg); transform-origin: left center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(201, 162, 74, 0.16), 0 0 0 1px rgba(201, 162, 74, 0.25); }
+.pieds { display: flex; justify-content: space-between; width: 70%; margin: -2px auto 0; transform: rotateY(-9deg); }
+.pieds span { width: 70px; height: 22px; border-bottom: 4px solid #1d2128; border-left: 4px solid #1d2128; transform: skewX(-35deg); }
+.pieds span:last-child { transform: skewX(35deg); border-left: none; border-right: 4px solid #1d2128; }
+.televiseur figcaption { margin-top: 18px; }
+.televiseur::after { content: ""; display: block; height: 18px; margin: -6px 10% 0; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(201, 162, 74, 0.35), transparent 70%); }
+
+.carte { text-align: center; padding: 30px 24px; transition: border-color 0.2s; }
+.carte:hover { border-color: rgba(201, 162, 74, 0.6); }
+.carte svg { width: 52px; height: 52px; margin: 0 auto; }
+.carte h3 { font-size: 1.2rem; margin-top: 16px; }
+
+.apercus { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 34px; }
+.apercus figure { margin: 0; padding: 8px; background: #050608; border: 1px solid var(--contour); border-radius: var(--rayon); }
+.apercus img { border-radius: 8px; }
+.apercus figcaption { padding: 10px 4px 2px; text-align: center; color: var(--texte-2); font-size: 0.9rem; }
+
+.bandeau-beta {
+  display: flex; align-items: center; gap: 26px; padding: 24px 32px; margin-bottom: 34px;
+  border: 1.5px solid var(--or); border-radius: 22px; background: linear-gradient(90deg, rgba(201, 162, 74, 0.12), rgba(17, 21, 26, 0.9) 45%);
+  box-shadow: 0 0 40px rgba(201, 162, 74, 0.10);
+}
+.bandeau-beta svg { width: 58px; height: 58px; color: var(--or); flex: none; padding-right: 26px; box-sizing: content-box; border-right: 1px solid rgba(201, 162, 74, 0.45); }
+.bandeau-beta p { margin: 0; color: var(--texte); font-size: 1.1rem; }
+.bandeau-beta .bandeau-titre { color: var(--or-clair); font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800; letter-spacing: 0.01em; }
+.beta-contenu { display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: start; }
+.beta-contenu h2 { margin: 0 0 12px; font-size: clamp(1.4rem, 2.4vw, 1.8rem); }
+.beta-contenu p { margin: 0; color: var(--texte-2); }
+
+.apropos-bloc { display: grid; grid-template-columns: 1.2fr 1fr; gap: 0; border: 1px solid var(--contour); border-radius: 18px; background: var(--surface); }
+.apropos-bloc > div { padding: 30px 34px; }
+.apropos-bloc h2 { margin: 0 0 14px; font-size: clamp(1.4rem, 2.4vw, 1.75rem); }
+.apropos-bloc > div + div { border-left: 1px solid var(--contour); }
+.attribution { margin: 0; padding-top: 30px; border-top: none; }
+.attribution-titre { color: var(--texte) !important; font-weight: 600; margin-bottom: 12px !important; }
+.attribution img { width: 160px; margin-bottom: 14px; }
+.attribution .petit { font-size: 0.85rem; color: var(--texte-3) !important; }
+
+.pied-page .conteneur { flex-direction: column; justify-content: center; text-align: center; gap: 12px; }
+.ligne-pied { margin: 0; color: var(--texte-2); }
+
 /* --- Adaptation tablette et mobile --- */
 @media (max-width: 900px) {
   .principale .conteneur { grid-template-columns: 1fr; padding-block: 48px 56px; gap: 36px; }
   .cartes { grid-template-columns: repeat(2, 1fr); }
   .encadre { grid-template-columns: 1fr; padding: 26px; }
+  .principale .conteneur { grid-template-columns: 1fr; }
+  .beta-contenu, .apropos-bloc { grid-template-columns: 1fr; }
+  .apropos-bloc > div + div { border-left: none; border-top: 1px solid var(--contour); }
+  .apercus { grid-template-columns: 1fr 1fr; }
+  .televiseur .ecran, .pieds { transform: none; }
   .apropos .colonnes { grid-template-columns: 1fr; }
 }
 
@@ -165,6 +224,11 @@ section { padding-block: 76px; }
   .navigation a[aria-current="page"] { box-shadow: none; }
   .cartes { grid-template-columns: 1fr; }
   section { padding-block: 56px; }
+  .apercus { grid-template-columns: 1fr; }
+  .titre-section::before, .titre-section::after { flex-basis: 24px; flex-grow: 0; }
+  .bandeau-beta { flex-direction: column; text-align: center; padding: 22px; gap: 14px; }
+  .bandeau-beta svg { padding-right: 0; border-right: none; }
+  .apropos-bloc > div { padding: 24px 22px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
