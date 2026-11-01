@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Installer FUSION TV — Guide</title>
+  <meta name="description" content="Guide d'installation de FUSION TV sur Android TV et Google TV : récupérer l'APK, le transférer, autoriser l'installation, lancer l'application et l'activer avec FUSION Access.">
+  <meta name="theme-color" content="#08090c">
+  <link rel="canonical" href="https://fusion-tv.fr/installation.html">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="index.html" aria-label="FUSION TV — accueil"><img src="assets/img/logo-small.png" alt="FUSION TV" width="280" height="93"></a>
+      <nav class="navigation" aria-label="Navigation principale">
+        <button class="bouton-menu" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+        <ul id="menu">
+          <li><a href="index.html#accueil">Accueil</a></li>
+          <li><a href="index.html#fonctionnalites">Fonctionnalités</a></li>
+          <li><a href="index.html#installer">Télécharger</a></li>
+          <li><a href="index.html#beta">Bêta privée</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu" class="document guide">
+    <div class="conteneur">
+      <h1>Installer FUSION TV</h1>
+      <p class="maj">Android TV et Google TV — Android 8.0 ou plus récent</p>
+
+      <p>FUSION TV n'est pas distribuée sur Google Play : elle s'installe à partir du fichier APK publié sur ce site. L'installation prend quelques minutes.</p>
+      <p class="avertissement">FUSION TV est un lecteur multimédia. Elle ne fournit aucune chaîne, aucun film, aucune série ni aucun abonnement IPTV : vous utilisez vos propres sources.</p>
+
+      <ol class="etapes">
+        <li>
+          <h2>Récupérer le fichier APK</h2>
+          <p>Depuis la section <a href="index.html#installer">Installer FUSION TV</a>, téléchargez le fichier sur votre ordinateur ou votre téléphone.</p>
+          <p>Pour vérifier qu'il est intact (facultatif), comparez son empreinte SHA-256 avec celle affichée sur le site :</p>
+          <ul>
+            <li>Windows (PowerShell) : <code>Get-FileHash fusion-tv.apk</code></li>
+            <li>macOS ou Linux : <code>shasum -a 256 fusion-tv.apk</code></li>
+          </ul>
+        </li>
+        <li>
+          <h2>Transférer le fichier sur le téléviseur</h2>
+          <ul>
+            <li><strong>Avec une clé USB :</strong> copiez le fichier sur la clé, branchez-la au téléviseur, puis ouvrez-le avec un gestionnaire de fichiers.</li>
+            <li><strong>Directement sur le téléviseur :</strong> installez depuis le Play Store du téléviseur une application de téléchargement de fichiers, puis saisissez l'adresse de ce site pour récupérer l'APK.</li>
+            <li><strong>Depuis votre téléphone :</strong> utilisez une application d'envoi de fichiers vers le téléviseur, installée sur les deux appareils.</li>
+          </ul>
+        </li>
+        <li>
+          <h2>Autoriser l'installation, si nécessaire</h2>
+          <p>Au premier essai, Android peut bloquer l'installation d'une application externe. Il propose alors souvent d'ouvrir directement le réglage concerné. Sinon :</p>
+          <ul>
+            <li><strong>Android TV :</strong> Paramètres › Applications › Sécurité et restrictions › Sources inconnues, puis autorisez l'application qui ouvre l'APK (gestionnaire de fichiers ou application de téléchargement).</li>
+            <li><strong>Google TV :</strong> activez d'abord le mode développeur (Paramètres › Système › À propos, appuyez sept fois sur « Build du système d'exploitation Android TV »), puis Paramètres › Applications › Sécurité et restrictions › Sources inconnues.</li>
+          </ul>
+          <p>Les intitulés peuvent varier selon le modèle. Une fois FUSION TV installée, vous pouvez retirer cette autorisation.</p>
+        </li>
+        <li>
+          <h2>Lancer FUSION TV</h2>
+          <p>Ouvrez le fichier APK, choisissez « Installer », puis « Ouvrir ». Ensuite, FUSION TV se trouve dans la liste des applications du téléviseur.</p>
+          <p>Pour une nouvelle version, refaites la même installation : vos sources, profils, favoris et historique sont conservés.</p>
+        </li>
+        <li>
+          <h2>Activer votre accès FUSION Access</h2>
+          <p>Au premier lancement, l'écran FUSION Access s'affiche. L'accès est réservé aux testeurs autorisés de la bêta privée gratuite :</p>
+          <ul>
+            <li><strong>« Commencer mon essai gratuit » :</strong> ouvre une période initiale de 7 jours (un essai par téléviseur).</li>
+            <li><strong>« Se connecter à un compte existant » :</strong> le téléviseur affiche un code valable 15 minutes. Dès que l'association est validée, il s'ouvre automatiquement.</li>
+            <li><strong>À la fin de la période :</strong> « Demander une prolongation gratuite » envoie votre demande. Elle est examinée par l'administrateur de la bêta.</li>
+          </ul>
+          <p>Aucun paiement n'est demandé pendant la bêta. Pour rejoindre les testeurs, écrivez à <a href="mailto:contact.fusiontv@proton.me">contact.fusiontv@proton.me</a>.</p>
+        </li>
+        <li>
+          <h2>Ajouter vos sources</h2>
+          <p>Dans Paramètres › Abonnements &amp; sources, choisissez « Ajouter une source » et renseignez votre playlist M3U ou votre compte Xtream.</p>
+        </li>
+      </ol>
+
+      <p><a class="bouton bouton-contour" href="index.html#installer">Retour au téléchargement</a></p>
+    </div>
+  </main>
+
+  <footer class="pied-page">
+    <div class="conteneur">
+      <img src="assets/img/logo-small.png" alt="FUSION TV" width="280" height="93">
+      <p class="ligne-pied">© <span id="annee">2026</span> FUSION TV — Projet personnel — Bêta privée non commerciale</p>
+      <ul>
+        <li><a href="mentions-legales.html">Mentions légales</a></li>
+        <li><a href="confidentialite.html">Politique de confidentialité</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.querySelector(".navigation");
+    const bouton = nav.querySelector(".bouton-menu");
+    bouton.addEventListener("click", () => {
+      const ouvert = nav.classList.toggle("ouverte");
+      bouton.setAttribute("aria-expanded", String(ouvert));
+    });
+    document.getElementById("annee").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
