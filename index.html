@@ -171,8 +171,13 @@
           </div>
           <div class="installer-actions">
             <!-- APK:DEBUT (bloc remplacé par publier-apk.sh à la publication d'une version validée) -->
-            <p class="bouton bouton-inactif" aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v11M7.5 10.5 12 15l4.5-4.5"/><path d="M4 15.5v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg><span>Téléchargement bientôt disponible</span></p>
-            <p class="apk-attente">La version, la taille, la date de publication et l'empreinte SHA-256 s'afficheront ici dès la publication de la première version validée.</p>
+            <a class="bouton" href="https://github.com/baddouce-dev/fusion-tv-site/releases/latest/download/fusion-tv.apk" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v11M7.5 10.5 12 15l4.5-4.5"/><path d="M4 15.5v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg><span>Télécharger FUSION TV (.APK)</span></a>
+            <dl class="apk-infos">
+              <div><dt>Version</dt><dd>0.5.4</dd></div>
+              <div><dt>Taille</dt><dd>5,9 Mo</dd></div>
+              <div><dt>Publiée le</dt><dd>1er novembre 2026</dd></div>
+            </dl>
+            <p class="apk-empreinte">SHA-256 : <code>5802102158abf93b7f4052e901db372d3efbb47f042881eb16ab86e02adfb89e</code> · <a href="https://github.com/baddouce-dev/fusion-tv-site/releases">Versions précédentes</a></p>
             <!-- APK:FIN -->
             <a class="lien-guide" href="installation.html">Guide d'installation pas à pas<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
@@ -187,12 +192,11 @@
           <div class="beta-texte">
             <p class="beta-surtitre">Bêta privée gratuite</p>
             <h2 id="titre-beta">FUSION TV évolue avec ses testeurs.</h2>
-            <p>L'application est actuellement en développement et proposée gratuitement à un groupe restreint de testeurs. Les retours permettent d'améliorer sa stabilité, son ergonomie et ses fonctionnalités.</p>
+            <p>L'application est actuellement en développement et proposée gratuitement en bêta. Chaque téléviseur bénéficie d'un essai de 7 jours, et les testeurs qui le souhaitent peuvent ensuite demander une prolongation gratuite. Les retours permettent d'améliorer sa stabilité, son ergonomie et ses fonctionnalités.</p>
             <ul class="points">
               <li>Accès gratuit pendant la phase de test.</li>
-              <li>Inscription et activation contrôlées.</li>
-              <li>Période initiale de 7 jours.</li>
-              <li>Prolongation gratuite possible après validation.</li>
+              <li>Essai gratuit de 7 jours dès l'installation.</li>
+                            <li>Prolongation gratuite possible après validation.</li>
               <li>Aucune contribution demandée.</li>
               <li>Aucune commercialisation active.</li>
             </ul>
