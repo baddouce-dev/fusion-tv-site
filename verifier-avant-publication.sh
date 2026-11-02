@@ -19,5 +19,16 @@ if [ -f fusion-tv.apk ]; then
   affichee="$(grep -o 'SHA-256 : <code>[0-9a-f]\{64\}' index.html | grep -o '[0-9a-f]\{64\}' | head -1)"
   [ "$(sha256sum fusion-tv.apk | cut -d' ' -f1)" = "$affichee" ] || { echo "fusion-tv.apk ne correspond pas à l'empreinte affichée."; status=1; }
 fi
+# Mises à jour intégrées : le manifeste doit désigner un APK présent dans maj/, à l'empreinte annoncée.
+if [ -f maj/manifest.json ]; then
+  python3 -I - <<'EOF' || status=1
+import base64, hashlib, json, pathlib, sys
+contenu = json.loads(base64.b64decode(json.loads(pathlib.Path("maj/manifest.json").read_text())["payload"]))
+apk = pathlib.Path("maj") / contenu["apk"]["path"]
+if not apk.is_file() or hashlib.sha256(apk.read_bytes()).hexdigest() != contenu["apk"]["sha256"]:
+    sys.exit(f"maj/manifest.json désigne un APK absent ou différent : {apk}")
+print(f"Mise à jour proposée aux applications : {contenu['versionName']} ({apk.name})")
+EOF
+fi
 [ $status -eq 0 ] && echo "Prêt à publier."
 exit $status

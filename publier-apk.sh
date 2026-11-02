@@ -5,6 +5,9 @@
 #   ./publier-apk.sh <fichier.apk> --publier    crée la release (après accord explicite du propriétaire)
 #                                               et remplace fusion-tv.apk (adresse courte fusion-tv.fr/fusion-tv.apk)
 #
+# Avec --publier, met aussi à jour maj/ (manifeste signé + APK) : les applications installées proposent alors la
+# mise à jour (https://fusion-tv.fr/maj/). Nouveautés affichées dans la fenêtre : variable NOTES="…" (facultative).
+#
 # Contrôles bloquants : paquet com.iptv.player, APK non débogable, nom sans « debug » ni « candidat »,
 # certificat de signature identique à l'empreinte attendue (compatibilité avec les installations existantes),
 # version absente des releases déjà publiées. Aucune clé n'est lue ni copiée par ce script.
@@ -67,7 +70,11 @@ open(chemin, "w", encoding="utf-8").write(nouveau)
 EOF
 }
 
+# Manifeste signé des mises à jour intégrées (clé privée hors dépôt, ~/.config/fusion-updates) ; contrôles identiques.
+MAJ_SCRIPT="$(cd .. && pwd)/fusion-updates/scripts/publish.py"
+NOTES="${NOTES:-Nouvelle version de FUSION TV.}"
 if [ "$mode" != "--publier" ]; then
+  python3 -I "$MAJ_SCRIPT" "$apk" --dest maj --keep 1 --notes "$NOTES" --dry-run
   apercu="$(mktemp -d)"
   cp -r index.html installation.html assets "$apercu/"
   remplacer "$apercu/index.html"
@@ -87,4 +94,5 @@ gh release create "v$version" --repo "$DEPOT" --title "FUSION TV $version" \
   "$travail/fusion-tv-$version.apk" "$travail/fusion-tv.apk" "$travail/SHA256SUMS.txt"
 remplacer index.html
 cp "$apk" fusion-tv.apk
-echo "Release v$version publiée. Section « Installer » mise à jour : vérifier, puis commiter et pousser le site."
+python3 -I "$MAJ_SCRIPT" "$apk" --dest maj --keep 1 --notes "$NOTES"
+echo "Release v$version publiée. Section « Installer » et maj/ mises à jour : vérifier, puis commiter et pousser le site."
