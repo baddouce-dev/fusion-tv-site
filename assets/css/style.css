@@ -165,6 +165,39 @@ section { padding-block: 72px; }
 .telecommande h3 { margin: 0 0 8px; font-size: 1.4rem; }
 .telecommande p { margin: 0; color: var(--texte-2); max-width: 40em; }
 
+/* --- Compatibilité --- */
+.config { display: grid; grid-template-columns: 1.1fr 1fr; gap: 22px; align-items: start; }
+.config-bas { display: grid; grid-template-columns: 1fr 1.3fr; gap: 22px; margin-top: 22px; align-items: start; }
+.config-carte {
+  padding: 26px 28px; border-radius: var(--rayon); background: linear-gradient(160deg, #1a1c21 0%, #0e1013 60%);
+  box-shadow: 0 0 0 1px rgba(224, 168, 30, 0.35), 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+.config-carte h3 { margin: 0 0 14px; font-size: 1.25rem; color: var(--or-clair); }
+.config-carte p { margin: 0; color: var(--texte-2); }
+.config-attention { box-shadow: 0 0 0 1.5px rgba(224, 168, 30, 0.75), 0 0 40px rgba(224, 168, 30, 0.12); }
+.config-liste { margin: 0; display: grid; gap: 14px; }
+.config-liste div { display: grid; grid-template-columns: 150px 1fr; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--contour); }
+.config-liste div:last-child { padding-bottom: 0; border-bottom: none; }
+.config-liste dt { color: var(--texte-2); font-weight: 600; }
+.config-liste dd { margin: 0; font-weight: 700; }
+.config-liste dd span, .config-appareils span { display: block; margin-top: 4px; color: var(--texte-2); font-weight: 400; font-size: 0.92rem; }
+.config-intro { margin-bottom: 14px !important; font-size: 0.94rem; }
+.config-appareils, .config-notes { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.config-appareils li { padding-left: 16px; border-left: 2px solid rgba(224, 168, 30, 0.55); }
+.config-teste {
+  margin-left: 6px; padding: 1px 8px; border-radius: 999px; font-style: normal; font-size: 0.75rem; font-weight: 800;
+  color: var(--fond); background: var(--or-clair); vertical-align: 2px;
+}
+.config-notes li { color: var(--texte-2); font-size: 0.94rem; }
+.config-notes strong { color: var(--texte); }
+@media (max-width: 1000px) {
+  .config, .config-bas { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .config-carte { padding: 20px 18px; }
+  .config-liste div { grid-template-columns: 1fr; gap: 2px; }
+}
+
 /* --- Galerie --- */
 .decouvrir { background: linear-gradient(180deg, transparent, var(--fond-eleve) 30%, var(--fond-eleve) 70%, transparent); }
 .galerie { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
