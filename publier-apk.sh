@@ -76,9 +76,9 @@ NOTES="${NOTES:-Nouvelle version de FUSION TV.}"
 if [ "$mode" != "--publier" ]; then
   python3 -I "$MAJ_SCRIPT" "$apk" --dest maj --keep 1 --notes "$NOTES" --dry-run
   apercu="$(mktemp -d)"
-  cp -r index.html installation.html assets "$apercu/"
-  remplacer "$apercu/index.html"
-  echo "Essai à blanc : aperçu du site dans $apercu/index.html (rien n'a été publié)."
+  cp -r ./*.html assets "$apercu/"
+  remplacer "$apercu/telecharger.html"
+  echo "Essai à blanc : aperçu du site dans $apercu/telecharger.html (rien n'a été publié)."
   exit 0
 fi
 
@@ -92,7 +92,8 @@ cp "$apk" "$travail/fusion-tv.apk"
 gh release create "v$version" --repo "$DEPOT" --title "FUSION TV $version" \
   --notes "Bêta privée gratuite — activation FUSION Access requise. SHA-256 : $empreinte" \
   "$travail/fusion-tv-$version.apk" "$travail/fusion-tv.apk" "$travail/SHA256SUMS.txt"
-remplacer index.html
+# Bloc du téléchargement : page « Télécharger » du site.
+remplacer telecharger.html
 cp "$apk" fusion-tv.apk
 python3 -I "$MAJ_SCRIPT" "$apk" --dest maj --keep 1 --notes "$NOTES"
 echo "Release v$version publiée. Section « Installer » et maj/ mises à jour : vérifier, puis commiter et pousser le site."

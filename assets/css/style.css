@@ -155,6 +155,10 @@ section { padding-block: 72px; }
 .carte img { width: 72px; height: 72px; margin: 0 auto 6px; filter: drop-shadow(0 0 10px rgba(224, 168, 30, 0.35)); }
 .carte h3 { margin: 10px 0 6px; font-size: 1.2rem; }
 .carte p { margin: 0; color: var(--texte-2); font-size: 0.96rem; }
+/* Pictogrammes dessinés (écrans, replay, envoi) : même place et même halo doré que les icônes illustrées. */
+.carte .icone { display: block; width: 72px; height: 72px; margin: 0 auto 6px; color: var(--or-clair); filter: drop-shadow(0 0 10px rgba(224, 168, 30, 0.35)); }
+.ecrans-action { margin: 36px 0 0; text-align: center; }
+.config-ecrans { margin-top: 20px; }
 
 .telecommande {
   display: grid; grid-template-columns: 240px 1fr; align-items: center; gap: 32px; margin-top: 36px; padding: 0 40px 0 10px;
@@ -433,7 +437,7 @@ section { padding-block: 72px; }
 
   .cartes { grid-template-columns: 1fr; gap: 12px; }
   .carte { display: grid; grid-template-columns: 56px 1fr; align-items: center; gap: 16px; padding: 16px 18px; text-align: left; }
-  .carte img { width: 56px; height: 56px; margin: 0; }
+  .carte img, .carte .icone { width: 56px; height: 56px; margin: 0; }
   .carte h3 { margin: 0 0 2px; font-size: 1.05rem; }
   .carte p { font-size: 0.9rem; line-height: 1.45; }
   .telecommande { grid-template-columns: 110px 1fr; gap: 12px; padding: 0 16px 0 0; margin-top: 20px; }
