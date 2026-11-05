@@ -47,6 +47,15 @@ date_fr="$jour $(LC_ALL=fr_FR.UTF-8 date +'%B %Y')"
 echo "FUSION TV $version — $taille — $date_fr"
 echo "SHA-256 : $empreinte"
 
+# Notes de la release selon le réglage commercial du site (commerce.json), bêta par défaut.
+mode_notes() {
+  if [ -f commerce.json ] && python3 -I -c 'import json, sys; sys.exit(json.load(open("commerce.json"))["mode"] != "vente")'; then
+    echo "Licence FUSION TV requise (code à activer après l'installation)."
+  else
+    echo "Bêta privée gratuite — activation FUSION Access requise."
+  fi
+}
+
 lien="https://github.com/$DEPOT/releases/latest/download/fusion-tv.apk"
 bloc="            <!-- APK:DEBUT (bloc remplacé par publier-apk.sh à la publication d'une version validée) -->
             <a class=\"bouton\" href=\"$lien\" download><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3.5v11M7.5 10.5 12 15l4.5-4.5\"/><path d=\"M4 15.5v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3\"/></svg><span>Télécharger FUSION TV (.APK)</span></a>
@@ -90,7 +99,7 @@ cp "$apk" "$travail/fusion-tv-$version.apk"
 cp "$apk" "$travail/fusion-tv.apk"
 ( cd "$travail" && sha256sum "fusion-tv-$version.apk" "fusion-tv.apk" > SHA256SUMS.txt )
 gh release create "v$version" --repo "$DEPOT" --title "FUSION TV $version" \
-  --notes "Bêta privée gratuite — activation FUSION Access requise. SHA-256 : $empreinte" \
+  --notes "$(mode_notes) SHA-256 : $empreinte" \
   "$travail/fusion-tv-$version.apk" "$travail/fusion-tv.apk" "$travail/SHA256SUMS.txt"
 # Bloc du téléchargement : page « Télécharger » du site.
 remplacer telecharger.html

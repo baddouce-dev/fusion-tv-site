@@ -30,5 +30,38 @@ if not apk.is_file() or hashlib.sha256(apk.read_bytes()).hexdigest() != contenu[
 print(f"Mise à jour proposée aux applications : {contenu['versionName']} ({apk.name})")
 EOF
 fi
+# Réglage commercial (commerce.json) : en bêta, aucune commande possible ; en vente, seulement si tout est définitif.
+if [ -f commerce.json ]; then
+  python3 -I - <<'EOF' || status=1
+import datetime, json, pathlib, re, sys
+r = json.loads(pathlib.Path("commerce.json").read_text())
+pages = {p.name: p.read_text(encoding="utf-8") for p in pathlib.Path(".").glob("*.html")}
+erreurs = []
+commander = [n for n, t in pages.items() if 'class="bouton offre-commander"' in t]
+if r["mode"] == "beta":
+    if commander:
+        erreurs.append(f"Mode bêta : bouton Commander présent ({', '.join(commander)}) — relancez _outils/generer-pages.py.")
+elif r["mode"] == "vente":
+    url = r.get("url_commande") or ""
+    if not url.startswith("https://") or ".invalid" in url:
+        erreurs.append("Mode vente : adresse de commande https:// réelle manquante dans commerce.json.")
+    cgv = pages.get("cgv.html", "")
+    if not cgv or re.search(r"À COMPLÉTER|BROUILLON", cgv):
+        erreurs.append("Mode vente : cgv.html définitive absente du site (le brouillon de _brouillons/ n'est pas publiable).")
+    mentions = pages.get("mentions-legales.html", "")
+    if "éditeur non professionnel" in mentions or "À COMPLÉTER" in mentions:
+        erreurs.append("Mode vente : mentions légales commerciales (identité de l'éditeur, SIRET…) à mettre en place.")
+    if "offre-commander" in pages.get("premium.html", ""):
+        erreurs.append("Premium n'est pas commercialisée : aucun bouton Commander sur premium.html.")
+    c = r.get("campagne")
+    if c and datetime.date.fromisoformat(c["fin"]) < datetime.date.today():
+        erreurs.append("Campagne de lancement terminée : retirez-la de commerce.json (tarifs standards) puis régénérez les pages.")
+else:
+    erreurs.append("commerce.json : mode inconnu (beta ou vente).")
+for e in erreurs:
+    print(e)
+sys.exit(1 if erreurs else 0)
+EOF
+fi
 [ $status -eq 0 ] && echo "Prêt à publier."
 exit $status

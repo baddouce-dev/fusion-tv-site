@@ -591,3 +591,5 @@ section { padding-block: 72px; }
   .carte.carte-texte { display: block; }
   .principale .actions .badge-ouverture { white-space: nowrap; }
 }
+/* Mode vente : bouton Commander centré, en bas de la carte de l'offre. */
+.offre .offre-commander { margin-top: auto; justify-content: center; }
