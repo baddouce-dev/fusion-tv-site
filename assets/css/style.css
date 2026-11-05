@@ -481,3 +481,113 @@ section { padding-block: 72px; }
 }
 
 .apk-officiel code { color: var(--texte); font-weight: 600; }
+
+/* ===== Pages commerciales (lot 5) : offres, écrans, formules, FAQ ===== */
+.page-titre { padding-block: 56px 8px; text-align: center; }
+.page-titre h1 { margin: 0 0 12px; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.15; }
+.page-titre p { margin: 0 auto; max-width: 44em; color: var(--texte-2); }
+.surtitre { display: inline-block; margin: 0 0 14px; color: var(--or-clair); font-weight: 800; font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; }
+.badge-ouverture {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; font-weight: 700; font-size: 0.9rem;
+  color: var(--or-clair); background: rgba(224, 168, 30, 0.08); box-shadow: 0 0 0 1px rgba(224, 168, 30, 0.45);
+}
+.badge-ouverture::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--or-clair); box-shadow: 0 0 10px var(--or); }
+
+/* Trois interfaces : captures réelles dans un cadre d'appareil dessiné en CSS (aucun visuel inventé). */
+.trois-ecrans { display: grid; grid-template-columns: 1.6fr 1.25fr 0.62fr; gap: 26px; align-items: end; }
+.appareil { margin: 0; text-align: center; }
+.appareil-cadre { position: relative; background: #050608; box-shadow: 0 0 0 1px #2b2f36, 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 40px rgba(224, 168, 30, 0.08); }
+.appareil-cadre img { width: 100%; }
+.appareil-tv .appareil-cadre { padding: 10px; border-radius: 14px; }
+.appareil-tv .appareil-cadre img { border-radius: 6px; aspect-ratio: 16 / 9; object-fit: cover; }
+.appareil-tv .appareil-cadre::after { content: ""; position: absolute; left: 42%; right: 42%; bottom: -16px; height: 10px; border-radius: 0 0 8px 8px; background: #1b1e23; }
+.appareil-tablette .appareil-cadre { padding: 14px; border-radius: 22px; }
+.appareil-tablette .appareil-cadre img { border-radius: 10px; aspect-ratio: 16 / 10; object-fit: cover; }
+.appareil-mobile .appareil-cadre { padding: 8px; border-radius: 30px; }
+.appareil-mobile .appareil-cadre img { border-radius: 23px; }
+.appareil figcaption { margin-top: 26px; }
+.appareil figcaption strong { display: block; font-size: 1.12rem; color: var(--texte); }
+.appareil figcaption span { color: var(--texte-2); font-size: 0.93rem; }
+.mention-captures { margin: 22px 0 0; text-align: center; color: var(--texte-3); font-size: 0.86rem; }
+
+/* Offres et tarifs */
+.offres { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.offre {
+  position: relative; display: flex; flex-direction: column; padding: 30px 28px 28px; border-radius: var(--rayon);
+  background: linear-gradient(180deg, var(--surface-haute), var(--surface)); box-shadow: 0 0 0 1px var(--contour);
+}
+.offre-mise-en-avant { box-shadow: 0 0 0 1.5px rgba(224, 168, 30, 0.8), 0 0 46px rgba(224, 168, 30, 0.16); }
+.offre-etiquette { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); padding: 4px 14px; border-radius: 999px; background: var(--or); color: #120d02; font-weight: 800; font-size: 0.78rem; letter-spacing: 0.06em; white-space: nowrap; }
+.offre h2, .offre h3 { margin: 0 0 4px; font-size: 1.45rem; }
+.offre-contenu { margin: 0 0 18px; color: var(--texte-2); }
+.offre-prix { margin: 0; font-size: 2.4rem; font-weight: 800; color: var(--or-clair); line-height: 1.1; }
+.offre-prix small { font-size: 1rem; font-weight: 600; color: var(--texte-2); }
+.offre-note { margin: 6px 0 20px; color: var(--texte-3); font-size: 0.86rem; }
+.offre ul { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 10px; }
+.offre li { position: relative; padding-left: 28px; color: var(--texte-2); font-size: 0.96rem; }
+.offre li::before { content: ""; position: absolute; left: 4px; top: 0.42em; width: 12px; height: 7px; border-left: 2px solid var(--or-clair); border-bottom: 2px solid var(--or-clair); transform: rotate(-45deg); }
+.offre .badge-ouverture { margin-top: auto; justify-content: center; }
+.precisions { margin-top: 34px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.precisions > div { padding: 22px 24px; border-radius: var(--rayon); background: var(--surface); box-shadow: 0 0 0 1px var(--contour); }
+.precisions h3 { margin: 0 0 8px; font-size: 1.08rem; color: var(--or-clair); }
+.precisions p, .precisions li { margin: 0; color: var(--texte-2); font-size: 0.95rem; }
+.precisions ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+
+/* Formules Standard / Premium */
+.formules { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+.formule { padding: 28px; border-radius: var(--rayon); background: var(--surface); box-shadow: 0 0 0 1px var(--contour); }
+.formule-premium { box-shadow: 0 0 0 1px rgba(224, 168, 30, 0.55); background: linear-gradient(160deg, rgba(224, 168, 30, 0.1), var(--surface) 55%); }
+.formule h3 { margin: 0 0 6px; font-size: 1.35rem; }
+.formule p { margin: 0 0 14px; color: var(--texte-2); }
+.etat { display: inline-block; margin-bottom: 12px; padding: 3px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; color: var(--texte-2); box-shadow: 0 0 0 1px var(--contour); }
+.etat-or { color: var(--or-clair); box-shadow: 0 0 0 1px rgba(224, 168, 30, 0.6); }
+
+/* Illustrations d'étapes (captures réelles) */
+.illustrations { display: grid; grid-template-columns: 1.7fr 0.55fr; gap: 22px; align-items: start; margin: 26px 0 8px; }
+.illustrations figure { margin: 0; }
+.illustrations img { border-radius: 14px; box-shadow: 0 0 0 1px var(--contour); }
+.illustrations figcaption { margin-top: 8px; color: var(--texte-3); font-size: 0.86rem; text-align: center; }
+
+/* Questions fréquentes */
+.faq { display: grid; gap: 12px; }
+.faq details { border-radius: 14px; background: var(--surface); box-shadow: 0 0 0 1px var(--contour); }
+.faq details[open] { box-shadow: 0 0 0 1px rgba(224, 168, 30, 0.5); }
+.faq summary { cursor: pointer; list-style: none; padding: 18px 52px 18px 22px; font-weight: 700; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 22px; top: 50%; transform: translateY(-50%); color: var(--or-clair); font-size: 1.4rem; font-weight: 400; }
+.faq details[open] summary::after { content: "–"; }
+.faq details > div { padding: 0 22px 18px; color: var(--texte-2); }
+.faq details > div p { margin: 0 0 10px; }
+.faq-groupe { margin: 34px 0 14px; font-size: 1.15rem; color: var(--or-clair); }
+
+/* Bandeau d'appel */
+.appel { text-align: center; padding: 42px 28px; border-radius: var(--rayon); background: linear-gradient(180deg, rgba(224, 168, 30, 0.1), transparent), var(--surface); box-shadow: 0 0 0 1px rgba(224, 168, 30, 0.35); }
+.appel h2 { margin: 0 0 10px; font-size: clamp(1.4rem, 2.6vw, 1.9rem); }
+.appel p { margin: 0 auto 22px; max-width: 40em; color: var(--texte-2); }
+.appel .actions { justify-content: center; }
+.avertissement-contenu { margin: 26px auto 0; max-width: 52em; text-align: center; color: var(--texte-3); font-size: 0.9rem; }
+.pied-liens { max-width: 900px; }
+
+@media (max-width: 1000px) {
+  .trois-ecrans { grid-template-columns: 1fr 1fr; }
+  .appareil-mobile { grid-column: 1 / -1; max-width: 260px; margin-inline: auto; }
+  .offres { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; }
+  .offre-mise-en-avant { margin-top: 10px; }
+}
+@media (max-width: 720px) {
+  .page-titre { padding-block: 30px 0; }
+  .trois-ecrans { grid-template-columns: 1fr; gap: 34px; }
+  .appareil-mobile { max-width: 230px; }
+  .precisions, .formules, .illustrations { grid-template-columns: 1fr; }
+  .illustrations figure:last-child { max-width: 240px; margin-inline: auto; }
+  .offre { padding: 26px 22px 22px; }
+  .offre-prix { font-size: 2.1rem; }
+  .appel { padding: 32px 18px; }
+}
+/* Cartes sans pictogramme (Premium) : texte sur toute la largeur, aussi sur téléphone. */
+.carte-texte { text-align: left; }
+.carte-texte h3 { margin-top: 0; color: var(--or-clair); }
+@media (max-width: 720px) {
+  .carte.carte-texte { display: block; }
+  .principale .actions .badge-ouverture { white-space: nowrap; }
+}
