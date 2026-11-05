@@ -1,19 +1,41 @@
 {
-  "_aide": "Réglage commercial du site, lu par _outils/generer-pages.py. mode : « beta » (ouverture prochaine, aucune commande) ou « vente » (boutons Commander). Le passage en vente est refusé par verifier-avant-publication.sh tant que l'adresse de commande, les CGV et les mentions légales commerciales ne sont pas définitives. Après modification : python3 _outils/generer-pages.py",
+  "_aide": "Réglage commercial du site, lu par _outils/generer-pages.py. mode : « beta » (ouverture prochaine, aucune commande) ou « vente » (boutons Commander). Les prix de lancement et l'état de la campagne ne sont jamais écrits ici : en mode vente, les pages les demandent au catalogue public de FUSION Access (url_catalogue) et n'affichent un tarif de lancement que s'il est confirmé. Après modification : python3 _outils/generer-pages.py",
   "mode": "beta",
   "url_commande": null,
+  "url_catalogue": "https://api.fusion-tv.fr/api/v1/catalog",
   "url_espace_revendeur": null,
   "contact": "contact.fusiontv@proton.me",
   "contact_revendeurs": "contact.fusiontv@proton.me",
   "offres": {
-    "solo": {"nom": "Solo", "prix": "7,99 €", "taxe": "TTC"},
-    "famille3": {"nom": "Famille 3", "prix": "20,99 €", "taxe": "TTC"},
-    "famille5": {"nom": "Famille 5", "prix": "32,99 €", "taxe": "TTC"},
-    "pro10": {"nom": "Pro 10", "prix": "39,90 €", "taxe": "HT"},
-    "pro25": {"nom": "Pro 25", "prix": "84,90 €", "taxe": "HT"},
-    "pro50": {"nom": "Pro 50", "prix": "149,90 €", "taxe": "HT"}
-  },
-  "campagne": null,
-  "_campagne_exemple": {"fin": "2026-12-31", "quota_licences": 500, "quota_revendeurs": 20,
-    "lancement": {"solo": "5,99 €", "famille3": "14,99 €", "famille5": "22,99 €", "pro10": "29,90 €", "pro25": "64,90 €", "pro50": "119,90 €"}}
+    "solo": {
+      "nom": "Solo",
+      "prix": "7,99 €",
+      "taxe": "TTC"
+    },
+    "famille3": {
+      "nom": "Famille 3",
+      "prix": "20,99 €",
+      "taxe": "TTC"
+    },
+    "famille5": {
+      "nom": "Famille 5",
+      "prix": "32,99 €",
+      "taxe": "TTC"
+    },
+    "pro10": {
+      "nom": "Pro 10",
+      "prix": "39,90 €",
+      "taxe": "HT"
+    },
+    "pro25": {
+      "nom": "Pro 25",
+      "prix": "84,90 €",
+      "taxe": "HT"
+    },
+    "pro50": {
+      "nom": "Pro 50",
+      "prix": "149,90 €",
+      "taxe": "HT"
+    }
+  }
 }

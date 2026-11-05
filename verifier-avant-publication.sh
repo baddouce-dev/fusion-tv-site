@@ -33,7 +33,7 @@ fi
 # Réglage commercial (commerce.json) : en bêta, aucune commande possible ; en vente, seulement si tout est définitif.
 if [ -f commerce.json ]; then
   python3 -I - <<'EOF' || status=1
-import datetime, json, pathlib, re, sys
+import json, pathlib, re, sys
 r = json.loads(pathlib.Path("commerce.json").read_text())
 pages = {p.name: p.read_text(encoding="utf-8") for p in pathlib.Path(".").glob("*.html")}
 erreurs = []
@@ -53,9 +53,12 @@ elif r["mode"] == "vente":
         erreurs.append("Mode vente : mentions légales commerciales (identité de l'éditeur, SIRET…) à mettre en place.")
     if "offre-commander" in pages.get("premium.html", ""):
         erreurs.append("Premium n'est pas commercialisée : aucun bouton Commander sur premium.html.")
-    c = r.get("campagne")
-    if c and datetime.date.fromisoformat(c["fin"]) < datetime.date.today():
-        erreurs.append("Campagne de lancement terminée : retirez-la de commerce.json (tarifs standards) puis régénérez les pages.")
+    if not (r.get("url_catalogue") or "").startswith("https://"):
+        erreurs.append("Mode vente : adresse https:// du catalogue public de FUSION Access manquante dans commerce.json.")
+    # Tarif de lancement : jamais écrit dans les pages (seul le catalogue de FUSION Access le confirme).
+    for n, t in pages.items():
+        if "Tarif de lancement jusqu" in t:
+            erreurs.append(f"{n} : tarif de lancement écrit en dur — il ne doit venir que du catalogue de FUSION Access.")
 else:
     erreurs.append("commerce.json : mode inconnu (beta ou vente).")
 for e in erreurs:

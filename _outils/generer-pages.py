@@ -6,7 +6,6 @@ commercial de commerce.json (mode bêta ou vente, adresse de commande, campagne 
 Mode « beta » : tarifs prévus, « Ouverture prochaine », aucune commande. Mode « vente » : boutons Commander vers
 l'adresse de commande, tarif de lancement affiché seulement si une campagne est renseignée (avec ses limites réelles et
 le tarif prévu ensuite, jamais de prix barré), lien vers les CGV. Le dossier _outils n'est pas servi par GitHub Pages."""
-import datetime
 import json
 import re
 from pathlib import Path
@@ -14,8 +13,9 @@ from pathlib import Path
 SITE = Path(".")
 REGLAGE = json.loads((SITE / "commerce.json").read_text())
 VENTE = REGLAGE["mode"] == "vente"
-CAMPAGNE = REGLAGE.get("campagne") if VENTE else None
 URL_COMMANDE = REGLAGE.get("url_commande")
+# Catalogue public de FUSION Access : seule source des tarifs de lancement et de l'état de la campagne (mode vente).
+URL_CATALOGUE = REGLAGE.get("url_catalogue")
 URL_ESPACE_REVENDEUR = REGLAGE.get("url_espace_revendeur")
 OFFRES = REGLAGE["offres"]
 CONTACT = REGLAGE["contact"]
@@ -23,17 +23,14 @@ CONTACT = REGLAGE["contact"]
 CONTACT_REVENDEURS = REGLAGE["contact_revendeurs"]
 if VENTE and not (URL_COMMANDE or "").startswith("https://"):
     raise SystemExit("Mode vente : renseignez une adresse de commande https:// dans commerce.json.")
-MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
+if VENTE and not (URL_CATALOGUE or "").startswith("https://"):
+    raise SystemExit("Mode vente : renseignez l'adresse https:// du catalogue public de FUSION Access dans commerce.json.")
 
 
 def B(beta, vente):
     """Texte selon le mode : bêta (avant l'ouverture) ou vente."""
     return vente if VENTE else beta
 
-
-def date_fr(iso):
-    d = datetime.date.fromisoformat(iso)
-    return f"{'1er' if d.day == 1 else d.day} {MOIS[d.month - 1]} {d.year}"
 
 NAV = [("index.html", "Accueil"), ("fonctionnalites.html", "Fonctionnalités"), ("tarifs.html", "Tarifs"), ("premium.html", "Premium"),
        ("revendeurs.html", "Revendeurs"), ("activation.html", "Activation"), ("assistance.html", "Assistance")]
@@ -120,7 +117,7 @@ def page(fichier, titre, description, corps):
   {pied_html()}
 
   {onglets_html(fichier)}
-
+{catalogue_script(fichier)}
   <script>
     const nav = document.querySelector(".navigation");
     const bouton = nav.querySelector(".bouton-menu");
@@ -134,6 +131,13 @@ def page(fichier, titre, description, corps):
 </html>
 """
     (SITE / fichier).write_text(html)
+
+
+def catalogue_script(fichier):
+    """Mode vente, pages de prix : lecture du catalogue public de FUSION Access (tarifs et campagne réels)."""
+    if not VENTE or fichier not in ("tarifs.html", "revendeurs.html"):
+        return ""
+    return f'  <script src="assets/js/catalogue.js" data-catalogue="{URL_CATALOGUE}" defer></script>\n'
 
 
 def titre_section(ident, texte):
@@ -238,28 +242,21 @@ ACCUEIL = f"""    <section class="principale" id="accueil" aria-labelledby="titr
 
 # --- Tarifs ----------------------------------------------------------------------------------------------------
 def offre(ident, contenu, unite, points, mise_en_avant=False, etiquette=None):
-    """Carte d'une offre. Bêta : tarif prévu et « Ouverture prochaine ». Vente : bouton Commander ; pendant une campagne
-    de lancement, le tarif de lancement, ses limites réelles et le tarif prévu ensuite (aucun prix barré)."""
+    """Carte d'une offre. Bêta : tarif prévu et « Ouverture prochaine ». Vente : tarif standard et bouton Commander ;
+    un tarif de lancement n'apparaît que s'il est confirmé par le catalogue public de FUSION Access (assets/js/catalogue.js),
+    jamais écrit dans la page : sans réponse du service, le tarif standard reste affiché."""
     o = OFFRES[ident]
     classe = "offre offre-mise-en-avant" if mise_en_avant else "offre"
     tag = f'<span class="offre-etiquette">{etiquette}</span>' if etiquette else ""
     lis = "".join(f"<li>{p}</li>" for p in points)
     unite = f"{o['taxe']}{unite}"
-    lancement = (CAMPAGNE or {}).get("lancement", {}).get(ident)
-    if not VENTE:
-        prix, note, action = o["prix"], "Tarif prévu à l'ouverture", '<p class="badge-ouverture">Ouverture prochaine</p>'
-    else:
+    if VENTE:
+        note = "Licence de 12 mois, sans renouvellement automatique. Prix confirmé à la commande."
         action = f'<a class="bouton offre-commander" href="{URL_COMMANDE}?offre={ident}" data-offre="{ident}"><span>Commander</span></a>'
-        if lancement:
-            pro = o["taxe"] == "HT"
-            limite = (f"sur le premier pack, pour les {CAMPAGNE['quota_revendeurs']} premiers revendeurs" if pro
-                      else f"dans la limite de {CAMPAGNE['quota_licences']} licences")
-            prix = lancement
-            note = f"Tarif de lancement jusqu'au {date_fr(CAMPAGNE['fin'])}, {limite}. Tarif prévu ensuite : {o['prix']} {o['taxe']}."
-        else:
-            prix, note = o["prix"], "Licence de 12 mois, sans renouvellement automatique"
-    return (f'<article class="{classe}">{tag}<h2>{o["nom"]}</h2><p class="offre-contenu">{contenu}</p>'
-            f'<p class="offre-prix">{prix} <small>{unite}</small></p><p class="offre-note">{note}</p>'
+    else:
+        note, action = "Tarif prévu à l'ouverture", '<p class="badge-ouverture">Ouverture prochaine</p>'
+    return (f'<article class="{classe}" data-offre="{ident}">{tag}<h2>{o["nom"]}</h2><p class="offre-contenu">{contenu}</p>'
+            f'<p class="offre-prix"><span data-prix>{o["prix"]}</span> <small>{unite}</small></p><p class="offre-note" data-note>{note}</p>'
             f'<ul>{lis}</ul>{action}</article>')
 
 TARIFS = f"""    <section class="page-titre" aria-labelledby="titre-tarifs">
@@ -282,7 +279,7 @@ TARIFS = f"""    <section class="page-titre" aria-labelledby="titre-tarifs">
           <div><h3>Packs Famille</h3><ul><li>Les licences d'un pack sont indépendantes : chacune a ses trois appareils et sa lecture.</li><li>Un pack est acheté par une seule personne, qui répartit les codes.</li></ul></div>
           <div><h3>Ce qui n'est pas inclus</h3><p>Aucun abonnement IPTV, aucune chaîne, aucun film ni aucune série. FUSION TV lit les sources que vous ajoutez vous-même.</p></div>
           {B("<div><h3>Avant l'ouverture</h3><p>Ces tarifs sont ceux prévus à l'ouverture. Les conditions de vente définitives seront publiées au moment de l'ouverture des ventes. Aucune commande n'est possible pour l'instant.</p></div>",
-             '<div><h3>Conditions de vente</h3><p>Prix TTC. Codes remis après paiement, affichés une seule fois. Avant de commander, consultez les <a href="cgv.html">conditions générales de vente</a>, notamment sur le droit de rétractation des contenus numériques.</p></div>')}
+             '<div><h3>Conditions de vente</h3><p>Prix TTC, confirmé par le serveur au moment de la commande. Codes remis après paiement, affichés une seule fois. Avant de commander, consultez les <a href="cgv.html">conditions générales de vente</a>, notamment sur le droit de rétractation des contenus numériques.</p></div>')}
         </div>
       </div>
     </section>
