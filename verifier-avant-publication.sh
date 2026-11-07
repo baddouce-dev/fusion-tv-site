@@ -10,14 +10,14 @@ if grep -rniE "api_key|password|mot de passe :|get\.php\?|player_api|BEGIN (EC|R
   echo "Contenu sensible détecté."; status=1
 fi
 # Jamais de faux bouton actif : un lien de téléchargement doit pointer vers une release réellement publiée.
-lien_apk="$(grep -o 'https://github.com/[^"]*/releases/latest/download/fusion-tv.apk' telecharger.html | head -1 || true)"
+lien_apk="$(grep -o 'https://github.com/[^"]*/releases/latest/download/cinoza.apk' telecharger.html | head -1 || true)"
 if [ -n "$lien_apk" ] && ! curl -sfIL -o /dev/null "$lien_apk"; then
   echo "Bouton de téléchargement actif mais APK introuvable : $lien_apk"; status=1
 fi
 # La copie directe doit être identique à l'APK de la dernière release (même empreinte que celle affichée).
-if [ -f fusion-tv.apk ]; then
+if [ -f cinoza.apk ]; then
   affichee="$(grep -o 'SHA-256 : <code>[0-9a-f]\{64\}' telecharger.html | grep -o '[0-9a-f]\{64\}' | head -1)"
-  [ "$(sha256sum fusion-tv.apk | cut -d' ' -f1)" = "$affichee" ] || { echo "fusion-tv.apk ne correspond pas à l'empreinte affichée."; status=1; }
+  [ "$(sha256sum cinoza.apk | cut -d' ' -f1)" = "$affichee" ] || { echo "cinoza.apk ne correspond pas à l'empreinte affichée."; status=1; }
 fi
 # Mises à jour intégrées : le manifeste doit désigner un APK présent dans maj/, à l'empreinte annoncée.
 if [ -f maj/manifest.json ]; then

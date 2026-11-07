@@ -6,7 +6,7 @@
 #                                               et remplace cinoza.apk (adresse courte cinoza.fr/cinoza.apk)
 #
 # Avec --publier, met aussi à jour maj/ (manifeste signé + APK) : les applications installées proposent alors la
-# mise à jour (https://cinoza.fr/maj/, et https://fusion-tv.fr/maj/ pour les versions FUSION TV, servie par le VPS). Nouveautés affichées dans la fenêtre : variable NOTES="…" (facultative).
+# mise à jour (https://cinoza.fr/maj/, relayée sur https://fusion-tv.fr/maj/ par le VPS pour les anciennes installations). Nouveautés affichées dans la fenêtre : variable NOTES="…" (facultative).
 #
 # Contrôles bloquants : paquet com.iptv.player, APK non débogable, nom sans « debug » ni « candidat »,
 # certificat de signature identique à l'empreinte attendue (compatibilité avec les installations existantes),
@@ -17,7 +17,7 @@ cd "$(dirname "$0")"
 DEPOT="baddouce-dev/cinoza-site"
 OUTILS="${ANDROID_HOME:-$HOME/Android/Sdk}/build-tools/35.0.0"
 # Empreinte SHA-256 du certificat attendu, conservée hors du dépôt public.
-EMPREINTE_FICHIER="${EMPREINTE_FICHIER:-$HOME/.config/fusion-tv/distribution-certificat.sha256}"
+EMPREINTE_FICHIER="${EMPREINTE_FICHIER:-$HOME/.config/cinoza/distribution-certificat.sha256}"
 
 apk="${1:?Usage : ./publier-apk.sh <fichier.apk> [--publier]}"
 mode="${2:-essai}"
@@ -79,8 +79,8 @@ open(chemin, "w", encoding="utf-8").write(nouveau)
 EOF
 }
 
-# Manifeste signé des mises à jour intégrées (clé privée hors dépôt, ~/.config/fusion-updates) ; contrôles identiques.
-MAJ_SCRIPT="$(cd .. && pwd)/fusion-updates/scripts/publish.py"
+# Manifeste signé des mises à jour intégrées (clé privée hors dépôt, ~/.config/cinoza-updates) ; contrôles identiques.
+MAJ_SCRIPT="$(cd .. && pwd)/cinoza-updates/scripts/publish.py"
 NOTES="${NOTES:-Nouvelle version de CINOZA.}"
 if [ "$mode" != "--publier" ]; then
   python3 -I "$MAJ_SCRIPT" "$apk" --dest maj --keep 1 --notes "$NOTES" --dry-run
