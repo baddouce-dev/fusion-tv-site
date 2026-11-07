@@ -167,6 +167,8 @@ section { padding-block: 72px; }
 }
 .telecommande img { width: 240px; height: 220px; object-fit: cover; object-position: 50% 30%; mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #000 55%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #000 55%, transparent 100%); }
 .telecommande h3 { margin: 0 0 8px; font-size: 1.4rem; }
+/* Sans illustration (provisoire, en attendant une illustration CINOZA) : le texte occupe toute la largeur. */
+.telecommande.telecommande-texte { grid-template-columns: 1fr; padding: 26px 40px 26px 28px; }
 .telecommande p { margin: 0; color: var(--texte-2); max-width: 40em; }
 
 /* --- Compatibilité --- */
@@ -443,6 +445,7 @@ section { padding-block: 72px; }
   .telecommande { grid-template-columns: 110px 1fr; gap: 12px; padding: 0 16px 0 0; margin-top: 20px; }
   .telecommande img { width: 110px; height: 150px; }
   .telecommande h3 { font-size: 1.1rem; }
+  .telecommande.telecommande-texte { grid-template-columns: 1fr; padding: 18px 16px; }
   .telecommande p { font-size: 0.9rem; line-height: 1.45; }
 
   /* Galerie : carrousel horizontal au toucher. */
