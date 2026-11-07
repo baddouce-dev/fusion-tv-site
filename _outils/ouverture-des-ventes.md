@@ -8,8 +8,8 @@ Le site est prêt à basculer, mais reste en mode **bêta** tant que tout n'est 
    - `"mode": "vente"` ;
    - `"url_commande"` : adresse https:// réelle de la page de commande (lot 7) ;
    - `"url_espace_revendeur"` : adresse de l'espace revendeur, si ouvert ;
-   - `"contact_revendeurs"` : `revendeurs@fusion-tv.fr` une fois l'adresse créée ;
-   - `"url_catalogue"` : catalogue public de FUSION Access (`https://api.fusion-tv.fr/api/v1/catalog`, route à ouvrir
+   - `"contact_revendeurs"` : `revendeurs@cinoza.fr` une fois l'adresse créée ;
+   - `"url_catalogue"` : catalogue public de CINOZA Access (`https://api.cinoza.fr/api/v1/catalog`, route à ouvrir
      dans Caddy au déploiement). Les tarifs de lancement et l'état de la campagne viennent **uniquement** de là : rien à
      modifier ici quand un quota est atteint ou que la campagne se termine.
 3. `python3 _outils/generer-pages.py`

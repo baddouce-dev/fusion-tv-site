@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Publication d'une version validée de FUSION TV sur GitHub Releases, puis mise à jour de la section « Installer » du site.
+# Publication d'une version validée de CINOZA sur GitHub Releases, puis mise à jour de la section « Installer » du site.
 #
 #   ./publier-apk.sh <fichier.apk>              essai à blanc : contrôles et aperçu du site, rien n'est envoyé
 #   ./publier-apk.sh <fichier.apk> --publier    crée la release (après accord explicite du propriétaire)
@@ -44,15 +44,15 @@ taille="$(LC_ALL=C awk -v o="$octets" 'BEGIN { printf "%.1f Mo", o / 1048576 }' 
 jour="$(date +%-d)"; [ "$jour" = 1 ] && jour="1er"
 date_fr="$jour $(LC_ALL=fr_FR.UTF-8 date +'%B %Y')"
 
-echo "FUSION TV $version — $taille — $date_fr"
+echo "CINOZA $version — $taille — $date_fr"
 echo "SHA-256 : $empreinte"
 
 # Notes de la release selon le réglage commercial du site (commerce.json), bêta par défaut.
 mode_notes() {
   if [ -f commerce.json ] && python3 -I -c 'import json, sys; sys.exit(json.load(open("commerce.json"))["mode"] != "vente")'; then
-    echo "Licence FUSION TV requise (code à activer après l'installation)."
+    echo "Licence CINOZA requise (code à activer après l'installation)."
   else
-    echo "Bêta privée gratuite — activation FUSION Access requise."
+    echo "Bêta privée gratuite — activation CINOZA Access requise."
   fi
 }
 
@@ -81,7 +81,7 @@ EOF
 
 # Manifeste signé des mises à jour intégrées (clé privée hors dépôt, ~/.config/fusion-updates) ; contrôles identiques.
 MAJ_SCRIPT="$(cd .. && pwd)/fusion-updates/scripts/publish.py"
-NOTES="${NOTES:-Nouvelle version de FUSION TV.}"
+NOTES="${NOTES:-Nouvelle version de CINOZA.}"
 if [ "$mode" != "--publier" ]; then
   python3 -I "$MAJ_SCRIPT" "$apk" --dest maj --keep 1 --notes "$NOTES" --dry-run
   apercu="$(mktemp -d)"

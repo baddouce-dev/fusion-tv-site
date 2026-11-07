@@ -1,4 +1,4 @@
-/* FUSION TV — site officiel. Couleurs reprises de l'application (noir profond, anthracite, blanc, or). */
+/* CINOZA — site officiel. Couleurs reprises de l'application (noir profond, anthracite, blanc, or). */
 :root {
   --fond: #08090c;
   --fond-eleve: #0d0f13;
@@ -294,7 +294,7 @@ section { padding-block: 72px; }
 .lien-telecharger svg { width: 18px; height: 18px; }
 .lien-telecharger-mobile { display: none; }
 
-/* --- Installer FUSION TV --- */
+/* --- Installer CINOZA --- */
 .installer { padding-top: 24px; }
 .installer-carte {
   display: grid; grid-template-columns: auto 1fr minmax(260px, 340px); align-items: center; gap: 32px; padding: 34px 40px;

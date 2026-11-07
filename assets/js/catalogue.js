@@ -1,6 +1,6 @@
 /*
- * FUSION TV — tarifs réels (mode vente seulement). La page est publiée avec les tarifs standards ; ce script demande
- * au catalogue public de FUSION Access, seule source officielle, si un tarif de lancement s'applique maintenant.
+ * CINOZA — tarifs réels (mode vente seulement). La page est publiée avec les tarifs standards ; ce script demande
+ * au catalogue public de CINOZA Access, seule source officielle, si un tarif de lancement s'applique maintenant.
  * Règle : aucune promotion n'est affichée sans confirmation du service. Sans réponse (panne, délai, réponse
  * inattendue), la page garde ses tarifs standards. Le prix est de toute façon confirmé par le serveur à la commande.
  */

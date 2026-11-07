@@ -1,11 +1,11 @@
 {
-  "_aide": "Réglage commercial du site, lu par _outils/generer-pages.py. mode : « beta » (ouverture prochaine, aucune commande) ou « vente » (boutons Commander). Les prix de lancement et l'état de la campagne ne sont jamais écrits ici : en mode vente, les pages les demandent au catalogue public de FUSION Access (url_catalogue) et n'affichent un tarif de lancement que s'il est confirmé. Après modification : python3 _outils/generer-pages.py",
+  "_aide": "Réglage commercial du site, lu par _outils/generer-pages.py. mode : « beta » (ouverture prochaine, aucune commande) ou « vente » (boutons Commander). Les prix de lancement et l'état de la campagne ne sont jamais écrits ici : en mode vente, les pages les demandent au catalogue public de CINOZA Access (url_catalogue) et n'affichent un tarif de lancement que s'il est confirmé. Après modification : python3 _outils/generer-pages.py",
   "mode": "beta",
   "url_commande": null,
-  "url_catalogue": "https://api.fusion-tv.fr/api/v1/catalog",
+  "url_catalogue": "https://api.cinoza.fr/api/v1/catalog",
   "url_espace_revendeur": null,
-  "contact": "contact.fusiontv@proton.me",
-  "contact_revendeurs": "contact.fusiontv@proton.me",
+  "contact": "contact@cinoza.fr",
+  "contact_revendeurs": "revendeurs@cinoza.fr",
   "offres": {
     "solo": {
       "nom": "Solo",

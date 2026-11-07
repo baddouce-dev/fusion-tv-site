@@ -1,4 +1,4 @@
-"""Génère les pages commerciales du site FUSION TV et harmonise la navigation des pages existantes, selon le réglage
+"""Génère les pages commerciales du site CINOZA et harmonise la navigation des pages existantes, selon le réglage
 commercial de commerce.json (mode bêta ou vente, adresse de commande, campagne de lancement, contacts).
 
     python3 _outils/generer-pages.py        (depuis la racine du site)
@@ -14,17 +14,17 @@ SITE = Path(".")
 REGLAGE = json.loads((SITE / "commerce.json").read_text())
 VENTE = REGLAGE["mode"] == "vente"
 URL_COMMANDE = REGLAGE.get("url_commande")
-# Catalogue public de FUSION Access : seule source des tarifs de lancement et de l'état de la campagne (mode vente).
+# Catalogue public de CINOZA Access : seule source des tarifs de lancement et de l'état de la campagne (mode vente).
 URL_CATALOGUE = REGLAGE.get("url_catalogue")
 URL_ESPACE_REVENDEUR = REGLAGE.get("url_espace_revendeur")
 OFFRES = REGLAGE["offres"]
 CONTACT = REGLAGE["contact"]
-# Adresse des revendeurs : réglée dans commerce.json (revendeurs@fusion-tv.fr à l'ouverture).
+# Adresse des revendeurs : réglée dans commerce.json (revendeurs@cinoza.fr à l'ouverture).
 CONTACT_REVENDEURS = REGLAGE["contact_revendeurs"]
 if VENTE and not (URL_COMMANDE or "").startswith("https://"):
     raise SystemExit("Mode vente : renseignez une adresse de commande https:// dans commerce.json.")
 if VENTE and not (URL_CATALOGUE or "").startswith("https://"):
-    raise SystemExit("Mode vente : renseignez l'adresse https:// du catalogue public de FUSION Access dans commerce.json.")
+    raise SystemExit("Mode vente : renseignez l'adresse https:// du catalogue public de CINOZA Access dans commerce.json.")
 
 
 def B(beta, vente):
@@ -68,13 +68,13 @@ def onglets_html(page):
 def pied_html():
     liens = "".join(f'<li><a href="{h}">{t}</a></li>' for h, t in LIENS_PIED)
     return ('<footer class="pied-page">\n    <div class="conteneur">\n'
-            '      <img src="assets/img/logo-small.png" alt="FUSION TV" width="280" height="93" loading="lazy">\n'
-            f'      <p class="ligne-pied">© <span id="annee">2026</span> FUSION TV — Lecteur IPTV pour Android{"" if VENTE else " — Bêta privée, vente non ouverte"}</p>\n'
+            '      <img src="assets/img/logo-small.png" alt="CINOZA" width="280" height="93" loading="lazy">\n'
+            f'      <p class="ligne-pied">© <span id="annee">2026</span> CINOZA — Lecteur IPTV pour Android{"" if VENTE else " — Bêta privée, vente non ouverte"}</p>\n'
             f'      <ul class="pied-liens">{liens}</ul>\n    </div>\n  </footer>')
 
 
 def page(fichier, titre, description, corps):
-    url = "https://fusion-tv.fr/" + ("" if fichier == "index.html" else fichier)
+    url = "https://cinoza.fr/" + ("" if fichier == "index.html" else fichier)
     html = f"""<!doctype html>
 <html lang="fr">
 <head>
@@ -85,12 +85,12 @@ def page(fichier, titre, description, corps):
   <meta name="theme-color" content="#08090c">
   <link rel="canonical" href="{url}">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="FUSION TV">
+  <meta property="og:site_name" content="CINOZA">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:title" content="{titre}">
   <meta property="og:description" content="{description}">
   <meta property="og:url" content="{url}">
-  <meta property="og:image" content="https://fusion-tv.fr/assets/img/partage.jpg">
+  <meta property="og:image" content="https://cinoza.fr/assets/img/partage.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
@@ -104,7 +104,7 @@ def page(fichier, titre, description, corps):
 
   <header class="entete">
     <div class="conteneur">
-      <a class="logo" href="index.html" aria-label="FUSION TV — accueil"><img src="assets/img/logo-small.png" alt="FUSION TV" width="280" height="93"></a>
+      <a class="logo" href="index.html" aria-label="CINOZA — accueil"><img src="assets/img/logo-small.png" alt="CINOZA" width="280" height="93"></a>
       {nav_html(fichier)}
       <a class="lien-telecharger" href="telecharger.html">{SVG_DL}<span>Télécharger</span></a>
     </div>
@@ -134,7 +134,7 @@ def page(fichier, titre, description, corps):
 
 
 def catalogue_script(fichier):
-    """Mode vente, pages de prix : lecture du catalogue public de FUSION Access (tarifs et campagne réels)."""
+    """Mode vente, pages de prix : lecture du catalogue public de CINOZA Access (tarifs et campagne réels)."""
     if not VENTE or fichier not in ("tarifs.html", "revendeurs.html"):
         return ""
     return f'  <script src="assets/js/catalogue.js" data-catalogue="{URL_CATALOGUE}" defer></script>\n'
@@ -144,16 +144,16 @@ def titre_section(ident, texte):
     return f'<h2 class="titre-section" id="{ident}"><span>{texte}</span></h2>'
 
 
-AUCUN_CONTENU = ('<p class="avertissement-contenu">FUSION TV est uniquement un lecteur IPTV. Aucun abonnement IPTV, aucune chaîne, '
+AUCUN_CONTENU = ('<p class="avertissement-contenu">CINOZA est uniquement un lecteur IPTV. Aucun abonnement IPTV, aucune chaîne, '
                  "aucun film ni aucune série n'est fourni : vous utilisez vos propres sources, dont vous devez détenir les droits.</p>")
 
 # --- Accueil ---------------------------------------------------------------------------------------------------
 ACCUEIL = f"""    <section class="principale" id="accueil" aria-labelledby="titre-principal">
       <div class="conteneur">
         <div class="principale-texte">
-          <h1 id="titre-principal" class="principale-logo"><img src="assets/img/logo-grand.webp" alt="FUSION TV — Tous vos contenus. Un seul univers." width="1120" height="373"></h1>
+          <h1 id="titre-principal" class="principale-logo"><img src="assets/img/logo-grand.webp" alt="CINOZA — Tous vos contenus. Un seul univers." width="1120" height="373"></h1>
           <p class="sous-titre">Le lecteur IPTV premium pour vos écrans Android.</p>
-          <p class="description">FUSION TV lit vos propres sources IPTV (Xtream, listes M3U, guides XMLTV) avec une interface pensée pour chaque écran : téléviseur Android TV et Google TV, tablette et smartphone Android. Une seule licence pour les trois.</p>
+          <p class="description">CINOZA lit vos propres sources IPTV (Xtream, listes M3U, guides XMLTV) avec une interface pensée pour chaque écran : téléviseur Android TV et Google TV, tablette et smartphone Android. Une seule licence pour les trois.</p>
           <div class="actions">
             <a class="bouton" href="tarifs.html"><span>{B("Voir les tarifs prévus", "Choisir ma licence")}</span><svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             {B('<p class="badge-ouverture">Ouverture prochaine</p>', "")}
@@ -163,7 +163,7 @@ ACCUEIL = f"""    <section class="principale" id="accueil" aria-labelledby="titr
         <figure class="televiseur">
           <div class="televiseur-cadre">
             <img class="televiseur-image" src="assets/img/televiseur.webp" srcset="assets/img/televiseur-940.webp 940w, assets/img/televiseur.webp 1410w" sizes="(max-width: 900px) 100vw, 640px" alt="" width="1410" height="890">
-            <div class="televiseur-ecran"><img src="assets/img/ecran-guide.jpg" alt="Guide TV de FUSION TV sur téléviseur : programme en cours, groupes de chaînes et grille horaire (données de démonstration)." width="1280" height="720" fetchpriority="high"></div>
+            <div class="televiseur-ecran"><img src="assets/img/ecran-guide.jpg" alt="Guide TV de CINOZA sur téléviseur : programme en cours, groupes de chaînes et grille horaire (données de démonstration)." width="1280" height="720" fetchpriority="high"></div>
           </div>
           <figcaption>Capture réelle de l'application sur téléviseur — Guide TV, données de démonstration.</figcaption>
         </figure>
@@ -196,7 +196,7 @@ ACCUEIL = f"""    <section class="principale" id="accueil" aria-labelledby="titr
 
     <section class="decouvrir" aria-labelledby="titre-avantages">
       <div class="conteneur">
-        {titre_section("titre-avantages", 'Pourquoi <span class="or">FUSION TV</span>')}
+        {titre_section("titre-avantages", 'Pourquoi <span class="or">CINOZA</span>')}
         <div class="cartes">
           <article class="carte"><img src="assets/img/icone-sources.webp" alt="" width="192" height="192" loading="lazy"><div><h3>Vos sources, bien rangées</h3><p>Connexions Xtream et listes M3U, guide XMLTV. Un abonnement s'envoie d'un appareil à l'autre par QR code, chiffré de bout en bout.</p></div></article>
           <article class="carte"><img src="assets/img/icone-guide.webp" alt="" width="192" height="192" loading="lazy"><div><h3>Direct et Guide TV</h3><p>Chaînes par groupes, programme en cours et suivant, grille horaire, replay lorsque votre fournisseur le propose.</p></div></article>
@@ -232,7 +232,7 @@ ACCUEIL = f"""    <section class="principale" id="accueil" aria-labelledby="titr
     <section class="contact" aria-labelledby="titre-appel">
       <div class="conteneur">
         <div class="appel">
-          <h2 id="titre-appel">{B("La vente des licences ouvrira prochainement", "Prêt à installer FUSION TV ?")}</h2>
+          <h2 id="titre-appel">{B("La vente des licences ouvrira prochainement", "Prêt à installer CINOZA ?")}</h2>
           <p>{B("Aucune commande ni aucun paiement pour le moment. La bêta privée reste gratuite pour les testeurs.",
                 "Téléchargez l'application, choisissez votre licence et activez votre code sur chacun de vos appareils.")}</p>
           <div class="actions"><a class="bouton" href="tarifs.html"><span>{B("Tarifs prévus", "Choisir ma licence")}</span></a><a class="bouton bouton-contour" href="telecharger.html"><span>{B("Télécharger la bêta", "Télécharger")}</span></a></div>
@@ -243,7 +243,7 @@ ACCUEIL = f"""    <section class="principale" id="accueil" aria-labelledby="titr
 # --- Tarifs ----------------------------------------------------------------------------------------------------
 def offre(ident, contenu, unite, points, mise_en_avant=False, etiquette=None):
     """Carte d'une offre. Bêta : tarif prévu et « Ouverture prochaine ». Vente : tarif standard et bouton Commander ;
-    un tarif de lancement n'apparaît que s'il est confirmé par le catalogue public de FUSION Access (assets/js/catalogue.js),
+    un tarif de lancement n'apparaît que s'il est confirmé par le catalogue public de CINOZA Access (assets/js/catalogue.js),
     jamais écrit dans la page : sans réponse du service, le tarif standard reste affiché."""
     o = OFFRES[ident]
     classe = "offre offre-mise-en-avant" if mise_en_avant else "offre"
@@ -277,7 +277,7 @@ TARIFS = f"""    <section class="page-titre" aria-labelledby="titre-tarifs">
         <div class="precisions">
           <div><h3>Comment fonctionne une licence</h3><ul><li>Un code de 16 caractères, à saisir dans l'application.</li><li>12 mois à partir de la première activation ; un code non activé ne démarre pas sa période.</li><li>Renouvellement : un nouveau code ajoute 12 mois après l'échéance, sans perdre de jours.</li></ul></div>
           <div><h3>Packs Famille</h3><ul><li>Les licences d'un pack sont indépendantes : chacune a ses trois appareils et sa lecture.</li><li>Un pack est acheté par une seule personne, qui répartit les codes.</li></ul></div>
-          <div><h3>Ce qui n'est pas inclus</h3><p>Aucun abonnement IPTV, aucune chaîne, aucun film ni aucune série. FUSION TV lit les sources que vous ajoutez vous-même.</p></div>
+          <div><h3>Ce qui n'est pas inclus</h3><p>Aucun abonnement IPTV, aucune chaîne, aucun film ni aucune série. CINOZA lit les sources que vous ajoutez vous-même.</p></div>
           {B("<div><h3>Avant l'ouverture</h3><p>Ces tarifs sont ceux prévus à l'ouverture. Les conditions de vente définitives seront publiées au moment de l'ouverture des ventes. Aucune commande n'est possible pour l'instant.</p></div>",
              '<div><h3>Conditions de vente</h3><p>Prix TTC, confirmé par le serveur au moment de la commande. Codes remis après paiement, affichés une seule fois. Avant de commander, consultez les <a href="cgv.html">conditions générales de vente</a>, notamment sur le droit de rétractation des contenus numériques.</p></div>')}
         </div>
@@ -298,7 +298,7 @@ TARIFS = f"""    <section class="page-titre" aria-labelledby="titre-tarifs">
 PREMIUM = f"""    <section class="page-titre" aria-labelledby="titre-premium">
       <div class="conteneur">
         <p class="surtitre">Formule en préparation</p>
-        <h1 id="titre-premium">FUSION TV Premium</h1>
+        <h1 id="titre-premium">CINOZA Premium</h1>
         <p>Toutes les fonctions de Standard, avec l'enrichissement des fiches de films et de séries par The Movie Database (TMDB). Premium n'est pas encore commercialisée : aucun prix ni aucune date ne sont annoncés.</p>
       </div>
     </section>
@@ -335,7 +335,7 @@ REVENDEURS = f"""    <section class="page-titre" aria-labelledby="titre-revendeu
       <div class="conteneur">
         <p class="surtitre">Professionnels</p>
         <h1 id="titre-revendeurs">Programme revendeur</h1>
-        <p>Des packs de licences FUSION TV Standard pour les professionnels qui équipent ou accompagnent leurs clients. {B("Le programme ouvrira avec la vente des licences.", "")}</p>
+        <p>Des packs de licences CINOZA Standard pour les professionnels qui équipent ou accompagnent leurs clients. {B("Le programme ouvrira avec la vente des licences.", "")}</p>
       </div>
     </section>
 
@@ -349,7 +349,7 @@ REVENDEURS = f"""    <section class="page-titre" aria-labelledby="titre-revendeu
         <div class="precisions">
           <div><h3>Les codes</h3><ul><li>Remis une seule fois, à conserver et à transmettre à vos clients.</li><li>Un code non activé ne commence pas sa période de 12 mois.</li><li>Chaque licence est indépendante des autres.</li></ul></div>
           <div><h3>{B("Prévu pour les revendeurs", "Espace revendeur")}</h3><ul><li>{B("Un espace revendeur sécurisé pour suivre vos packs (en préparation).", f'Suivi de vos packs dans l\'<a href="{URL_ESPACE_REVENDEUR}">espace revendeur sécurisé</a>.' if URL_ESPACE_REVENDEUR else "Un espace revendeur sécurisé pour suivre vos packs (en préparation).")}</li><li>Réservé aux professionnels identifiés.</li></ul></div>
-          <div><h3>Règle essentielle</h3><p>FUSION TV est un lecteur : il ne fournit aucun contenu. Les licences ne doivent jamais être vendues avec des abonnements ou des contenus dont les droits ne sont pas détenus.</p></div>
+          <div><h3>Règle essentielle</h3><p>CINOZA est un lecteur : il ne fournit aucun contenu. Les licences ne doivent jamais être vendues avec des abonnements ou des contenus dont les droits ne sont pas détenus.</p></div>
           <div><h3>{B("Être informé de l'ouverture", "Devenir revendeur")}</h3><p>Écrivez-nous en précisant votre activité : <a href="mailto:{CONTACT_REVENDEURS}" data-contact="revendeurs"><!-- CONTACT-REVENDEURS -->{CONTACT_REVENDEURS}</a>.</p></div>
         </div>
         <p class="avertissement-contenu">{B("Prix hors taxes prévus à l'ouverture, par pack. Aucune commande n'est possible pour l'instant ; les conditions de vente aux professionnels seront publiées à l'ouverture.",
@@ -360,16 +360,16 @@ REVENDEURS = f"""    <section class="page-titre" aria-labelledby="titre-revendeu
 # --- Activation ------------------------------------------------------------------------------------------------
 ACTIVATION = f"""    <section class="page-titre" aria-labelledby="titre-activation">
       <div class="conteneur">
-        <p class="surtitre">Licence FUSION TV</p>
+        <p class="surtitre">Licence CINOZA</p>
         <h1 id="titre-activation">Activer votre licence</h1>
-        <p>Un code de 16 caractères, saisi une fois sur chaque appareil. L'activation se fait toujours en ligne, auprès du service FUSION Access.{B(" Disponible à l'ouverture des ventes.", "")}</p>
+        <p>Un code de 16 caractères, saisi une fois sur chaque appareil. L'activation se fait toujours en ligne, auprès du service CINOZA Access.{B(" Disponible à l'ouverture des ventes.", "")}</p>
       </div>
     </section>
 
     <section class="document" aria-label="Étapes d'activation">
       <div class="conteneur">
         <ol class="etapes">
-          <li><h2>Installez FUSION TV</h2><p>Sur votre téléviseur Android TV ou Google TV, votre tablette ou votre smartphone Android, depuis la page <a href="telecharger.html">Télécharger</a>.</p></li>
+          <li><h2>Installez CINOZA</h2><p>Sur votre téléviseur Android TV ou Google TV, votre tablette ou votre smartphone Android, depuis la page <a href="telecharger.html">Télécharger</a>.</p></li>
           <li><h2>Saisissez votre code</h2><p>Au premier lancement, choisissez « J'ai un code de licence », puis saisissez les 16 caractères (par exemple <code>XXXX-XXXX-XXXX-XXXX</code>). Les tirets s'ajoutent tout seuls ; une faute de frappe est signalée avant tout envoi.</p></li>
           <li><h2>Vérifiez puis confirmez</h2><p>« Vérifier le code » affiche ce que fera le code — durée, dates, appareil — sans rien utiliser. Vous confirmez ensuite l'activation.</p></li>
           <li><h2>Ajoutez vos autres appareils</h2><p>Saisissez le même code sur votre téléphone et votre tablette : chaque licence accepte un téléviseur, un téléphone et une tablette, avec une seule lecture à la fois.</p></li>
@@ -381,7 +381,7 @@ ACTIVATION = f"""    <section class="page-titre" aria-labelledby="titre-activati
         <p class="mention-captures">Captures réelles de l'application, réalisées avec un serveur d'essai (codes fictifs).</p>
 
         <h2>Renouveler</h2>
-        <p>Dans Paramètres › FUSION Access (téléviseur, tablette) ou Plus › Mon compte (smartphone), choisissez « Ajouter un code ». Un code de la même formule ajoute 12 mois après l'échéance de votre licence : aucun jour n'est perdu.</p>
+        <p>Dans Paramètres › CINOZA Access (téléviseur, tablette) ou Plus › Mon compte (smartphone), choisissez « Ajouter un code ». Un code de la même formule ajoute 12 mois après l'échéance de votre licence : aucun jour n'est perdu.</p>
         <p>Un code d'une autre formule prend effet à l'échéance de la licence en cours ; l'application vous l'annonce et vous demande de le confirmer avant de l'enregistrer.</p>
         <div class="illustrations">
           <figure><img src="assets/img/activation-tv-formule.webp" alt="Téléviseur : changement de formule annoncé avant confirmation, avec les dates de début et de fin." width="1280" height="720" loading="lazy"><figcaption>Changement de formule annoncé avant confirmation.</figcaption></figure>
@@ -389,7 +389,7 @@ ACTIVATION = f"""    <section class="page-titre" aria-labelledby="titre-activati
         </div>
 
         <h2>Changer d'appareil</h2>
-        <p>Nouveau téléviseur, téléphone remplacé ? Saisissez le code de la licence sur le nouvel appareil. Si la licence a déjà un appareil de ce type, une demande de changement d'appareil est envoyée : après validation par l'assistance FUSION TV, le nouvel appareil remplace l'ancien.</p>
+        <p>Nouveau téléviseur, téléphone remplacé ? Saisissez le code de la licence sur le nouvel appareil. Si la licence a déjà un appareil de ce type, une demande de changement d'appareil est envoyée : après validation par l'assistance CINOZA, le nouvel appareil remplace l'ancien.</p>
 
         <h2>Si le code est refusé</h2>
         <ul>
@@ -416,11 +416,11 @@ ASSISTANCE = f"""    <section class="page-titre" aria-labelledby="titre-assistan
 
     <section class="document" aria-label="Questions fréquentes">
       <div class="conteneur">
-        <h2 class="faq-groupe">FUSION TV et vos sources</h2>
+        <h2 class="faq-groupe">CINOZA et vos sources</h2>
         <div class="faq">
-          {q("FUSION TV fournit-il des chaînes, des films ou des séries ?", "Non. FUSION TV est uniquement un lecteur IPTV : aucun abonnement, aucune chaîne, aucun film ni aucune série n'est fourni. Vous ajoutez vos propres sources, dont vous devez détenir les droits.")}
-          {q("Quelles sources puis-je ajouter ?", "Une connexion Xtream (adresse du serveur, identifiant, mot de passe) ou une liste M3U, avec un guide des programmes XMLTV facultatif. Le replay est proposé lorsque votre fournisseur l'annonce, sur les connexions Xtream.", "Vos identifiants restent chiffrés sur votre appareil : ils ne sont jamais envoyés au service de licences FUSION Access.")}
-          {q("Sur quels appareils fonctionne FUSION TV ?", "Téléviseurs et boîtiers Android TV et Google TV, tablettes et smartphones Android (Android 8.0 ou plus récent). Il n'existe pas de version pour iPhone, iPad, Apple TV ni pour les téléviseurs non Android.")}
+          {q("CINOZA fournit-il des chaînes, des films ou des séries ?", "Non. CINOZA est uniquement un lecteur IPTV : aucun abonnement, aucune chaîne, aucun film ni aucune série n'est fourni. Vous ajoutez vos propres sources, dont vous devez détenir les droits.")}
+          {q("Quelles sources puis-je ajouter ?", "Une connexion Xtream (adresse du serveur, identifiant, mot de passe) ou une liste M3U, avec un guide des programmes XMLTV facultatif. Le replay est proposé lorsque votre fournisseur l'annonce, sur les connexions Xtream.", "Vos identifiants restent chiffrés sur votre appareil : ils ne sont jamais envoyés au service de licences CINOZA Access.")}
+          {q("Sur quels appareils fonctionne CINOZA ?", "Téléviseurs et boîtiers Android TV et Google TV, tablettes et smartphones Android (Android 8.0 ou plus récent). Il n'existe pas de version pour iPhone, iPad, Apple TV ni pour les téléviseurs non Android.")}
         </div>
 
         <h2 class="faq-groupe">Licences</h2>
@@ -435,14 +435,14 @@ ASSISTANCE = f"""    <section class="page-titre" aria-labelledby="titre-assistan
 
         <h2 class="faq-groupe">Connexion et hors ligne</h2>
         <div class="faq">
-          {q("FUSION TV fonctionne-t-il sans connexion au service FUSION Access ?", "Oui, pendant un temps : la licence est vérifiée régulièrement, et si le service est momentanément injoignable alors qu'Internet fonctionne, FUSION TV continue de fonctionner jusqu'à 7 jours. La vérification reprend dès que le service répond.", "Vos sources IPTV, elles, demandent bien sûr une connexion à Internet pour être regardées.")}
-          {q("Puis-je activer un code hors ligne ?", "Non : un nouveau code s'active uniquement en ligne, auprès du service FUSION Access.")}
+          {q("CINOZA fonctionne-t-il sans connexion au service CINOZA Access ?", "Oui, pendant un temps : la licence est vérifiée régulièrement, et si le service est momentanément injoignable alors qu'Internet fonctionne, CINOZA continue de fonctionner jusqu'à 7 jours. La vérification reprend dès que le service répond.", "Vos sources IPTV, elles, demandent bien sûr une connexion à Internet pour être regardées.")}
+          {q("Puis-je activer un code hors ligne ?", "Non : un nouveau code s'active uniquement en ligne, auprès du service CINOZA Access.")}
           {q("Changer l'heure de l'appareil prolonge-t-il la licence ?", "Non. L'application utilise l'heure du service de licences ; reculer l'horloge de l'appareil ne change rien.")}
         </div>
 
         <h2 class="faq-groupe">Vos données</h2>
         <div class="faq">
-          {q("Que conserve le service FUSION Access ?", "Ce qui sert à la licence : l'appareil (type, modèle, version de l'application), l'état et les dates de la licence, la durée d'utilisation de l'application et, pendant une lecture, une empreinte illisible de l'abonnement lu, pour la règle d'une lecture à la fois.", "Jamais vos identifiants IPTV, vos listes, vos favoris ni votre historique, qui restent sur vos appareils. Voir la <a href=\"confidentialite.html\">politique de confidentialité</a>.")}
+          {q("Que conserve le service CINOZA Access ?", "Ce qui sert à la licence : l'appareil (type, modèle, version de l'application), l'état et les dates de la licence, la durée d'utilisation de l'application et, pendant une lecture, une empreinte illisible de l'abonnement lu, pour la règle d'une lecture à la fois.", "Jamais vos identifiants IPTV, vos listes, vos favoris ni votre historique, qui restent sur vos appareils. Voir la <a href=\"confidentialite.html\">politique de confidentialité</a>.")}
         </div>
       </div>
     </section>"""
@@ -458,18 +458,18 @@ def harmoniser(fichier):
         html = re.sub(r'<nav class="onglets".*?</nav>', onglets_html(fichier), html, count=1, flags=re.S)
     if fichier == "telecharger.html":
         html = re.sub(r'<p class="installer-mention">.*?</p>', '<p class="installer-mention">'
-                      + B("Bêta privée gratuite — activation requise", "Licence FUSION TV requise — code à saisir après l'installation") + "</p>", html, count=1)
+                      + B("Bêta privée gratuite — activation requise", "Licence CINOZA requise — code à saisir après l'installation") + "</p>", html, count=1)
     chemin.write_text(html)
 
 
 if __name__ == "__main__":
-    page("index.html", "FUSION TV — Lecteur IPTV premium pour Android TV, tablette et smartphone",
-         "FUSION TV, lecteur IPTV pour Android TV, Google TV, tablette et smartphone Android : une licence pour trois appareils. Aucun contenu fourni.", ACCUEIL)
-    page("tarifs.html", "Tarifs — FUSION TV", B("Tarifs prévus à l'ouverture des licences FUSION TV Standard", "Tarifs des licences FUSION TV Standard") + " : Solo, Famille 3 et Famille 5. Licence de 12 mois, sans renouvellement automatique.", TARIFS)
-    page("premium.html", "Premium — FUSION TV", "FUSION TV Premium, en préparation : fiches enrichies par The Movie Database (TMDB). Non commercialisée, aucun prix annoncé.", PREMIUM)
-    page("revendeurs.html", "Programme revendeur — FUSION TV", "Packs de licences FUSION TV pour les professionnels : Pro 10, Pro 25 et Pro 50." + B(" Ouverture avec la vente des licences.", ""), REVENDEURS)
-    page("activation.html", "Activation — FUSION TV", "Activer une licence FUSION TV avec un code de 16 caractères, la renouveler et changer d'appareil.", ACTIVATION)
-    page("assistance.html", "Assistance — FUSION TV", "Questions fréquentes sur FUSION TV : licences, appareils, lecture simultanée, fonctionnement hors ligne, sources IPTV.", ASSISTANCE)
+    page("index.html", "CINOZA — Lecteur IPTV premium pour Android TV, tablette et smartphone",
+         "CINOZA, lecteur IPTV pour Android TV, Google TV, tablette et smartphone Android : une licence pour trois appareils. Aucun contenu fourni.", ACCUEIL)
+    page("tarifs.html", "Tarifs — CINOZA", B("Tarifs prévus à l'ouverture des licences CINOZA Standard", "Tarifs des licences CINOZA Standard") + " : Solo, Famille 3 et Famille 5. Licence de 12 mois, sans renouvellement automatique.", TARIFS)
+    page("premium.html", "Premium — CINOZA", "CINOZA Premium, en préparation : fiches enrichies par The Movie Database (TMDB). Non commercialisée, aucun prix annoncé.", PREMIUM)
+    page("revendeurs.html", "Programme revendeur — CINOZA", "Packs de licences CINOZA pour les professionnels : Pro 10, Pro 25 et Pro 50." + B(" Ouverture avec la vente des licences.", ""), REVENDEURS)
+    page("activation.html", "Activation — CINOZA", "Activer une licence CINOZA avec un code de 16 caractères, la renouveler et changer d'appareil.", ACTIVATION)
+    page("assistance.html", "Assistance — CINOZA", "Questions fréquentes sur CINOZA : licences, appareils, lecture simultanée, fonctionnement hors ligne, sources IPTV.", ASSISTANCE)
     for existante in ("fonctionnalites.html", "compatibilite.html", "beta.html", "a-propos.html", "contact.html", "telecharger.html",
                       "installation.html", "mentions-legales.html", "confidentialite.html"):
         harmoniser(existante)

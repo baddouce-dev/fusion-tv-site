@@ -54,11 +54,11 @@ elif r["mode"] == "vente":
     if "offre-commander" in pages.get("premium.html", ""):
         erreurs.append("Premium n'est pas commercialisée : aucun bouton Commander sur premium.html.")
     if not (r.get("url_catalogue") or "").startswith("https://"):
-        erreurs.append("Mode vente : adresse https:// du catalogue public de FUSION Access manquante dans commerce.json.")
-    # Tarif de lancement : jamais écrit dans les pages (seul le catalogue de FUSION Access le confirme).
+        erreurs.append("Mode vente : adresse https:// du catalogue public de CINOZA Access manquante dans commerce.json.")
+    # Tarif de lancement : jamais écrit dans les pages (seul le catalogue de CINOZA Access le confirme).
     for n, t in pages.items():
         if "Tarif de lancement jusqu" in t:
-            erreurs.append(f"{n} : tarif de lancement écrit en dur — il ne doit venir que du catalogue de FUSION Access.")
+            erreurs.append(f"{n} : tarif de lancement écrit en dur — il ne doit venir que du catalogue de CINOZA Access.")
 else:
     erreurs.append("commerce.json : mode inconnu (beta ou vente).")
 for e in erreurs:
