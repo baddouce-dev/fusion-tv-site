@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Publication complète d'une version validée de FUSION TV, en une commande (utilisable à distance par Claude Code) :
+# Publication complète d'une version validée de CINOZA, en une commande (utilisable à distance par Claude Code) :
 #
 #   ./publier.sh <fichier.apk> "<nouveautés affichées dans le bandeau de mise à jour>"
 #
@@ -20,7 +20,7 @@ OUTILS="${ANDROID_HOME:-$HOME/Android/Sdk}/build-tools/35.0.0"
 version="$("$OUTILS/aapt2" dump badging "$apk" | sed -n "s/.*versionName='\([^']*\)'.*/\1/p")"
 [ -n "$version" ] || { echo "Version illisible dans $apk"; exit 1; }
 
-echo "== Publication de FUSION TV $version"
+echo "== Publication de CINOZA $version"
 NOTES="$notes" ./publier-apk.sh "$apk" --publier
 
 echo "== Vérification du site"
@@ -28,7 +28,7 @@ echo "== Vérification du site"
 
 echo "== Enregistrement et envoi du site"
 git add -A
-git commit -q -m "FUSION TV $version"
+git commit -q -m "CINOZA $version"
 git push -q
 git log --oneline -1
-echo "FUSION TV $version publiée. Mise en ligne du site par GitHub Pages en quelques minutes."
+echo "CINOZA $version publiée. Mise en ligne du site par GitHub Pages en quelques minutes."

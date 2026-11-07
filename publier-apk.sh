@@ -3,10 +3,10 @@
 #
 #   ./publier-apk.sh <fichier.apk>              essai à blanc : contrôles et aperçu du site, rien n'est envoyé
 #   ./publier-apk.sh <fichier.apk> --publier    crée la release (après accord explicite du propriétaire)
-#                                               et remplace fusion-tv.apk (adresse courte fusion-tv.fr/fusion-tv.apk)
+#                                               et remplace fusion-tv.apk (adresse courte cinoza.fr/fusion-tv.apk)
 #
 # Avec --publier, met aussi à jour maj/ (manifeste signé + APK) : les applications installées proposent alors la
-# mise à jour (https://fusion-tv.fr/maj/). Nouveautés affichées dans la fenêtre : variable NOTES="…" (facultative).
+# mise à jour (https://cinoza.fr/maj/, et https://fusion-tv.fr/maj/ pour les versions FUSION TV, servie par le VPS). Nouveautés affichées dans la fenêtre : variable NOTES="…" (facultative).
 #
 # Contrôles bloquants : paquet com.iptv.player, APK non débogable, nom sans « debug » ni « candidat »,
 # certificat de signature identique à l'empreinte attendue (compatibilité avec les installations existantes),
@@ -58,7 +58,7 @@ mode_notes() {
 
 lien="https://github.com/$DEPOT/releases/latest/download/fusion-tv.apk"
 bloc="            <!-- APK:DEBUT (bloc remplacé par publier-apk.sh à la publication d'une version validée) -->
-            <a class=\"bouton\" href=\"$lien\" download><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3.5v11M7.5 10.5 12 15l4.5-4.5\"/><path d=\"M4 15.5v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3\"/></svg><span>Télécharger FUSION TV (.APK)</span></a>
+            <a class=\"bouton\" href=\"$lien\" download><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3.5v11M7.5 10.5 12 15l4.5-4.5\"/><path d=\"M4 15.5v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3\"/></svg><span>Télécharger CINOZA (.APK)</span></a>
             <dl class=\"apk-infos\">
               <div><dt>Version</dt><dd>$version</dd></div>
               <div><dt>Taille</dt><dd>$taille</dd></div>
@@ -98,7 +98,7 @@ travail="$(mktemp -d)"
 cp "$apk" "$travail/fusion-tv-$version.apk"
 cp "$apk" "$travail/fusion-tv.apk"
 ( cd "$travail" && sha256sum "fusion-tv-$version.apk" "fusion-tv.apk" > SHA256SUMS.txt )
-gh release create "v$version" --repo "$DEPOT" --title "FUSION TV $version" \
+gh release create "v$version" --repo "$DEPOT" --title "CINOZA $version" \
   --notes "$(mode_notes) SHA-256 : $empreinte" \
   "$travail/fusion-tv-$version.apk" "$travail/fusion-tv.apk" "$travail/SHA256SUMS.txt"
 # Bloc du téléchargement : page « Télécharger » du site.
