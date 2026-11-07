@@ -40,10 +40,10 @@
           <p class="avertissement"><strong>CINOZA se télécharge uniquement sur cinoza.fr.</strong> Un fichier obtenu ailleurs (messagerie, forum, autre site) n'est pas officiel et pourrait dérober vos identifiants IPTV : ne l'installez pas.</p>
           <p>Pour vérifier qu'il est intact (facultatif), comparez son empreinte SHA-256 avec celle affichée sur le site :</p>
           <ul>
-            <li>Windows (PowerShell) : <code>Get-FileHash fusion-tv.apk</code></li>
-            <li>macOS ou Linux : <code>shasum -a 256 fusion-tv.apk</code></li>
+            <li>Windows (PowerShell) : <code>Get-FileHash cinoza.apk</code></li>
+            <li>macOS ou Linux : <code>shasum -a 256 cinoza.apk</code></li>
           </ul>
-          <p>Pour vérifier qu'il est bien signé par CINOZA, comparez l'empreinte de son certificat de signature avec celle-ci (sur Android : application « Package Info » ; sur ordinateur : <code>apksigner verify --print-certs fusion-tv.apk</code>) :</p>
+          <p>Pour vérifier qu'il est bien signé par CINOZA, comparez l'empreinte de son certificat de signature avec celle-ci (sur Android : application « Package Info » ; sur ordinateur : <code>apksigner verify --print-certs cinoza.apk</code>) :</p>
           <p><code>0D:AD:98:66:A2:3F:52:40:DA:49:B4:9F:B3:B8:06:6E:13:50:91:73:82:4B:B7:AD:1A:00:26:B7:1B:5F:C5:2E</code></p>
           <p>Cette empreinte ne change pas d'une version à l'autre. Si elle est différente, le fichier n'est pas officiel.</p>
         </li>
@@ -51,7 +51,7 @@
           <h2>Transférer le fichier sur l'appareil</h2>
           <ul>
             <li><strong>Avec l'application Downloader (le plus simple) :</strong> installez Downloader depuis le Play Store du téléviseur, ouvrez-la et saisissez le code <code>9685240</code>, puis « Go » ; le téléchargement démarre, puis l'installation est proposée. Ce code est le seul code officiel de CINOZA.</li>
-            <li><strong>Avec le navigateur du téléviseur :</strong> saisissez l'adresse <code>cinoza.fr/fusion-tv.apk</code>.</li>
+            <li><strong>Avec le navigateur du téléviseur :</strong> saisissez l'adresse <code>cinoza.fr/cinoza.apk</code>.</li>
             <li><strong>Avec une clé USB :</strong> copiez le fichier sur la clé, branchez-la au téléviseur, puis ouvrez-le avec un gestionnaire de fichiers.</li>
             <li><strong>Depuis votre téléphone :</strong> utilisez une application d'envoi de fichiers vers le téléviseur, installée sur les deux appareils.</li>
             <li><strong>Sur une tablette ou un mobile Android :</strong> rien à transférer. Ouvrez <code>cinoza.fr</code> dans le navigateur, touchez « Télécharger CINOZA (.APK) », puis ouvrez le fichier téléchargé : Android propose l'installation.</li>
